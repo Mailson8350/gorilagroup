@@ -1,0 +1,13 @@
+node_modules/
+.vite/
+build/
+dist/
+coverage/
+gorila.db
+uploads/*
+!uploads/site/
+!uploads/site/placeholder.svg
+.DS_Store
+*.log
+.env*
+!.env.example
