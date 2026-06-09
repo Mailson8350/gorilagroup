@@ -6,6 +6,7 @@
   "scripts": {
     "predev": "tsx scripts/kill-dev-ports.ts",
     "dev": "tsx server.ts",
+    "start": "tsx server.ts",
     "build": "vite build",
     "preview": "vite preview",
     "seed": "tsx scripts/seed-supabase.ts",
