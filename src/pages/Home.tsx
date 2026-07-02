@@ -141,11 +141,11 @@ export default function Home() {
               {t("home_cta_title")}
             </h2>
             <p className="mt-6 text-zinc-400 text-lg max-w-2xl mx-auto">
-              {t("home_cta_ask")}
+              {t("home_cta_desc")}
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link to="/contacto" className="btn-primary">
-                {t("home_cta_ask")}
+                {t("home_cta_button")}
               </Link>
             </div>
           </div>
