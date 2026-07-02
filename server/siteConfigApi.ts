@@ -1,5 +1,5 @@
 export const SITE_CONFIG_DEFAULTS: Record<string, string> = {
-  logo_url: "",
+  logo_url: "/uploads/site/1778852957422-4760912d24d7.png",
   favicon_url: "",
   hero_image: "",
   site_name: "Gorila",

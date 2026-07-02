@@ -434,7 +434,7 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
           >
             <MediaImage src={heroLogo} alt="Logo" className="w-full h-full object-contain" />
           </motion.div>
-          <h1 className="text-6xl md:text-9xl font-black uppercase italic tracking-tighter text-white mb-6">{serviceNome}</h1>
+          <h1 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter text-white mb-6">{serviceNome}</h1>
           <p className="text-zinc-300 text-lg md:text-2xl font-medium max-w-2xl mx-auto">{descricao}</p>
         </motion.div>
       </div>
@@ -443,12 +443,12 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3 space-y-12">
             <div className="bg-white p-12 rounded-[2.5rem] shadow-xl border border-zinc-100">
-              <h2 className="text-3xl font-black uppercase italic tracking-tighter mb-8">{t("generic_service_offering_title")}</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-black uppercase italic tracking-tighter mb-8">{t("generic_service_offering_title")}</h2>
               <p className="text-zinc-600 text-lg leading-relaxed whitespace-pre-wrap">{descricao}</p>
             </div>
 
             <div className="space-y-8">
-              <h2 className="text-3xl font-black uppercase italic tracking-tighter">{t("generic_service_options_title")}</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-black uppercase italic tracking-tighter">{t("generic_service_options_title")}</h2>
               {loadingItems ? (
                 <div className="flex justify-center py-16">
                   <div className="animate-spin h-10 w-10 border-t-2 border-b-2 border-black rounded-full" />
@@ -497,7 +497,7 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
 
           <div className="lg:col-span-1">
             <div className="bg-zinc-950 text-white p-8 rounded-[2.5rem] sticky top-24 shadow-2xl">
-              <h3 className="text-2xl font-black uppercase italic mb-6">{t("generic_request_title")}</h3>
+              <h3 className="text-xl md:text-2xl font-black uppercase italic mb-6">{t("generic_request_title")}</h3>
               <p className="text-zinc-500 text-sm mb-6">{t("generic_request_cta_hint")}</p>
               <button
                 type="button"
@@ -530,7 +530,7 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
             >
               <X size={20} />
             </button>
-            <h3 className="text-xl font-black uppercase italic mb-1">Solicitar</h3>
+            <h3 className="text-xl font-black uppercase italic mb-1">{t("generic_request_modal_title")}</h3>
             {requestOpcao ? (
               <p className="text-sm text-zinc-500 mb-6">
                 Opção: <strong>{requestOpcao.nome}</strong>
@@ -544,34 +544,34 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
               <form onSubmit={handleSolicitar} className="space-y-3">
                 <input
                   required
-                  placeholder="Nome"
+                  placeholder={t("generic_request_placeholder_name")}
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-black"
                 />
                 <input
                   type="email"
-                  placeholder="E-mail"
+                  placeholder={t("generic_request_placeholder_email")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-black"
                 />
                 <input
                   required
-                  placeholder="Telefone"
+                  placeholder={t("generic_request_placeholder_phone")}
                   value={telefone}
                   onChange={(e) => setTelefone(e.target.value)}
                   className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-black"
                 />
                 <textarea
                   rows={3}
-                  placeholder="Mensagem"
+                  placeholder={t("generic_request_placeholder_message")}
                   value={mensagem}
                   onChange={(e) => setMensagem(e.target.value)}
                   className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none resize-none focus:ring-2 focus:ring-black"
                 />
                 <button type="submit" disabled={submitStatus === "loading"} className="w-full btn-primary disabled:opacity-50">
-                  {submitStatus === "loading" ? "A enviar..." : "Enviar"}
+                  {submitStatus === "loading" ? t("contact_status_loading") : t("generic_request_submit")}
                 </button>
                 {submitStatus === "error" && <p className="text-red-600 text-sm">{submitError}</p>}
               </form>

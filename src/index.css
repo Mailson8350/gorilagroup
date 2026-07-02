@@ -20,9 +20,9 @@
     @apply font-display font-bold;
   }
 
-  h1 { @apply text-[48px] leading-tight; }
-  h2 { @apply text-[36px] leading-tight; }
-  h3 { @apply text-[28px] leading-tight; }
+  h1 { font-size: clamp(1.75rem, 4.5vw, 4.5rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 3rem); line-height: 1.1; }
+  h3 { font-size: clamp(1.125rem, 2.5vw, 1.75rem); line-height: 1.15; }
   p { @apply text-[16px] leading-relaxed; }
 }
 

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Bed, Music, Zap, Star, Layout, ArrowRight, ShoppingBag } from "lucide-react";
 import { motion } from "motion/react";
+import MediaImage from "../components/MediaImage";
 import { useSettings } from "../contexts/SettingsContext";
 import { mediaUrl } from "../lib/media";
 
@@ -23,9 +24,8 @@ export default function Services() {
       {/* Header */}
       <div className="bg-secondary text-white py-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-6xl md:text-8xl font-display font-bold uppercase tracking-tighter leading-none">
-            {t("services_title").split(" ")[0]} <br />
-            <span className="text-primary">{t("services_title").split(" ")[1] || ""}</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tighter leading-none">
+            {t("services_title")}
           </h1>
           <p className="text-zinc-400 mt-8 max-w-xl text-lg">
             {t("services_desc")}
@@ -52,9 +52,9 @@ export default function Services() {
               className="group bg-white rounded-2xl overflow-hidden shadow-2xl border border-zinc-100 card-hover"
             >
               <div className="aspect-video overflow-hidden relative">
-                <img 
-                  src={mediaUrl(service.banner_url)} 
-                  alt={(service as any)[`nome_${language}`]} 
+                <MediaImage
+                  src={service.banner_url}
+                  alt={(service as any)[`nome_${language}`]}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                 />

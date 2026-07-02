@@ -46,7 +46,7 @@ export type SiteSettings = {
 };
 
 export const SITE_CONFIG_KEYS = Object.keys({
-  logo_url: "",
+  logo_url: "/uploads/site/1778852957422-4760912d24d7.png",
   favicon_url: "",
   hero_image: "",
   site_name: "Gorila",
@@ -92,7 +92,7 @@ export const SITE_CONFIG_KEYS = Object.keys({
 } satisfies SiteSettings) as (keyof SiteSettings)[];
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  logo_url: "",
+  logo_url: "/uploads/site/1778852957422-4760912d24d7.png",
   favicon_url: "",
   hero_image: "",
   site_name: "Gorila",
