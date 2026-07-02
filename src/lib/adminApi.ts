@@ -23,6 +23,12 @@ export type AdminFetchResult<T> =
   | { ok: true; data: T }
   | { ok: false; status: number; error: string; unauthorized: boolean };
 
+export function isAdminFetchError<T>(
+  result: AdminFetchResult<T>
+): result is { ok: false; status: number; error: string; unauthorized: boolean } {
+  return !result.ok;
+}
+
 export async function adminFetchJson<T = unknown>(url: string, init?: RequestInit): Promise<AdminFetchResult<T>> {
   try {
     const res = await adminFetch(url, init);
@@ -73,7 +79,7 @@ export async function adminFetchJson<T = unknown>(url: string, init?: RequestIni
 
 export async function adminFetchList<T>(url: string): Promise<AdminFetchResult<T[]>> {
   const result = await adminFetchJson<T[] | { error?: string }>(url);
-  if (!result.ok) return result;
+  if (!result.ok) return result as AdminFetchResult<T[]>;
   if (!Array.isArray(result.data)) {
     return {
       ok: false,

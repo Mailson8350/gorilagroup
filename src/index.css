@@ -38,5 +38,13 @@
   .card-hover {
     @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
   }
+
+  .glass-panel {
+    @apply bg-white/95 border border-zinc-200/80 shadow-2xl rounded-3xl backdrop-blur-xl;
+  }
+
+  .label-pill {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em];
+  }
 }
 

@@ -37,7 +37,7 @@ interface Opcao {
 export default function GenericServicePage({ serviceId: propServiceId }: { serviceId?: string }) {
   const { serviceId: paramServiceId } = useParams();
   const serviceId = propServiceId || paramServiceId;
-  const { services, language, formatPrice, siteConfig } = useSettings();
+  const { services, language, formatPrice, siteConfig, t } = useSettings();
   const service = useMemo(() => {
     const fromDb = services.find((s) => s.id === serviceId);
     if (fromDb) return fromDb;
@@ -123,13 +123,13 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <motion.div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black mb-4" />
-        <p className="font-bold text-zinc-400">A carregar serviço...</p>
+        <p className="font-bold text-zinc-400">{t("generic_loading_service")}</p>
       </div>
     );
   }
 
   const isAbout = serviceId === "sobre";
-  const langSuffix = language === "en" ? "_en" : "_pt";
+  const langSuffix = language === "en" ? "_en" : language === "fr" ? "_fr" : language === "es" ? "_es" : "_pt";
   const serviceNome =
     (isAbout && siteConfig[`about_title${langSuffix}` as keyof typeof siteConfig]) ||
     (service as Record<string, string>)[`nome_${language}`] ||
@@ -172,6 +172,30 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
             cta: "Send a message",
             ctaHint: "Partnerships, press or general questions.",
             linkContact: "Full contacts & location",
+          }
+        : language === "fr"
+        ? {
+            mission: "Mission",
+            vision: "Vision",
+            values: "Valeurs",
+            history: "Notre histoire",
+            intro: "Qui nous sommes",
+            contact: "Contact",
+            cta: "Envoyer un message",
+            ctaHint: "Partenariats, presse ou questions générales.",
+            linkContact: "Contacts complets et localisation",
+          }
+        : language === "es"
+        ? {
+            mission: "Misión",
+            vision: "Visión",
+            values: "Valores",
+            history: "Nuestra historia",
+            intro: "Quiénes somos",
+            contact: "Contacto",
+            cta: "Enviar mensaje",
+            ctaHint: "Colaboraciones, prensa o consultas generales.",
+            linkContact: "Contactos completos y ubicación",
           }
         : {
             mission: "Missão",
@@ -341,48 +365,48 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
               >
                 <X size={20} />
               </button>
-              <h3 className="text-xl font-black uppercase italic mb-1">Solicitar</h3>
+              <h3 className="text-xl font-black uppercase italic mb-1">{t("generic_request_modal_title")}</h3>
               {requestOpcao ? (
                 <p className="text-sm text-zinc-500 mb-6">
-                  Opção: <strong>{requestOpcao.nome}</strong>
+                  {t("generic_request_option_prefix")} <strong>{requestOpcao.nome}</strong>
                 </p>
               ) : (
-                <p className="text-sm text-zinc-500 mb-6">Pedido geral — {serviceNome}</p>
+                <p className="text-sm text-zinc-500 mb-6">{t("generic_request_general_prefix")} {serviceNome}</p>
               )}
               {submitStatus === "ok" ? (
-                <p className="text-emerald-600 font-bold text-center py-8">Enviado com sucesso!</p>
+                <p className="text-emerald-600 font-bold text-center py-8">{t("generic_request_success")}</p>
               ) : (
                 <form onSubmit={handleSolicitar} className="space-y-3">
                   <input
                     required
-                    placeholder="Nome"
+                    placeholder={t("generic_request_placeholder_name")}
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
                     className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-black"
                   />
                   <input
                     type="email"
-                    placeholder="E-mail"
+                    placeholder={t("generic_request_placeholder_email")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-black"
                   />
                   <input
                     required
-                    placeholder="Telefone"
+                    placeholder={t("generic_request_placeholder_phone")}
                     value={telefone}
                     onChange={(e) => setTelefone(e.target.value)}
                     className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-black"
                   />
                   <textarea
                     rows={3}
-                    placeholder="Mensagem"
+                    placeholder={t("generic_request_placeholder_message")}
                     value={mensagem}
                     onChange={(e) => setMensagem(e.target.value)}
                     className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm outline-none resize-none focus:ring-2 focus:ring-black"
                   />
                   <button type="submit" disabled={submitStatus === "loading"} className="w-full btn-primary disabled:opacity-50">
-                    {submitStatus === "loading" ? "A enviar..." : "Enviar"}
+                    {submitStatus === "loading" ? t("contact_status_loading") : t("generic_request_submit")}
                   </button>
                   {submitStatus === "error" && <p className="text-red-600 text-sm">{submitError}</p>}
                 </form>
@@ -419,19 +443,19 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3 space-y-12">
             <div className="bg-white p-12 rounded-[2.5rem] shadow-xl border border-zinc-100">
-              <h2 className="text-3xl font-black uppercase italic tracking-tighter mb-8">O que oferecemos</h2>
+              <h2 className="text-3xl font-black uppercase italic tracking-tighter mb-8">{t("generic_service_offering_title")}</h2>
               <p className="text-zinc-600 text-lg leading-relaxed whitespace-pre-wrap">{descricao}</p>
             </div>
 
             <div className="space-y-8">
-              <h2 className="text-3xl font-black uppercase italic tracking-tighter">Opções disponíveis</h2>
+              <h2 className="text-3xl font-black uppercase italic tracking-tighter">{t("generic_service_options_title")}</h2>
               {loadingItems ? (
                 <div className="flex justify-center py-16">
                   <div className="animate-spin h-10 w-10 border-t-2 border-b-2 border-black rounded-full" />
                 </div>
               ) : items.length === 0 ? (
                 <p className="text-zinc-500 text-center py-12 bg-zinc-50 rounded-2xl border border-dashed border-zinc-200">
-                  Ainda sem opções publicadas. Solicite um orçamento personalizado ao lado.
+                  {t("generic_service_no_options")}
                 </p>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -473,23 +497,23 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
 
           <div className="lg:col-span-1">
             <div className="bg-zinc-950 text-white p-8 rounded-[2.5rem] sticky top-24 shadow-2xl">
-              <h3 className="text-2xl font-black uppercase italic mb-6">Solicitar orçamento</h3>
-              <p className="text-zinc-500 text-sm mb-6">Escolha uma opção ou peça uma proposta geral.</p>
+              <h3 className="text-2xl font-black uppercase italic mb-6">{t("generic_request_title")}</h3>
+              <p className="text-zinc-500 text-sm mb-6">{t("generic_request_cta_hint")}</p>
               <button
                 type="button"
                 onClick={() => openRequest(null)}
                 className="w-full py-4 rounded-2xl font-black uppercase bg-white text-black mb-3 flex items-center justify-center gap-2"
               >
-                <MessageSquare size={18} /> Solicitar
+                <MessageSquare size={18} /> {t("generic_request_button")}
               </button>
               <Link
                 to="/loja"
                 className="w-full py-4 rounded-2xl font-bold uppercase flex items-center justify-center gap-2 mb-3 ring-2 ring-white/20 hover:bg-white hover:text-black transition-colors"
               >
-                <ShoppingBag size={18} /> Visitar loja
+                <ShoppingBag size={18} /> {t("generic_request_visit_store")}
               </Link>
               <Link to="/contacto" className="block text-center text-xs text-zinc-500 hover:text-white uppercase font-bold">
-                Outros contactos
+                {t("generic_request_other_contacts")}
               </Link>
             </div>
           </div>

@@ -149,7 +149,7 @@ export default function Portfolio() {
 
       <div className="bg-secondary py-32 text-center px-4">
         <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter text-white mb-8">
-          Deseja um evento inesquecível?
+          {t("portfolio_want_event")}
         </h2>
         <Link to="/contacto">
           <motion.span
@@ -157,7 +157,7 @@ export default function Portfolio() {
             whileTap={{ scale: 0.95 }}
             className="inline-block bg-primary text-secondary px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm shadow-2xl"
           >
-            Solicitar Orçamento
+            {t("portfolio_event_cta")}
           </motion.span>
         </Link>
       </div>

@@ -106,10 +106,10 @@ export default function Home() {
           <div className="flex items-end justify-between mb-12">
             <div>
               <h2 className="text-4xl font-display font-bold uppercase">{t("store")}</h2>
-              <p className="text-zinc-500 mt-2">Equipamentos de alta performance para o seu som.</p>
+              <p className="text-zinc-500 mt-2">{t("home_hero_desc")}</p>
             </div>
             <Link to="/loja" className="text-primary font-bold hover:underline flex items-center space-x-2">
-              <span>Ver Loja</span>
+              <span>{t("home_view_store")}</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -124,7 +124,7 @@ export default function Home() {
                   <h4 className="font-bold text-lg mb-1">{product.nome}</h4>
                   <p className="text-primary font-black text-xl">{formatPrice(product.preco)}</p>
                   <Link to={`/loja/produto/${product.id}`} className="mt-4 block text-center bg-zinc-100 hover:bg-primary text-secondary py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors">
-                    Ver produto
+                    {t("product_view")}
                   </Link>
                 </div>
               </div>
@@ -138,14 +138,14 @@ export default function Home() {
         <div className="bg-secondary rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
           <div className="relative z-10">
             <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase tracking-tighter">
-              PRONTO PARA <span className="text-primary">RESERVAR?</span>
+              {t("home_cta_title")}
             </h2>
             <p className="mt-6 text-zinc-400 text-lg max-w-2xl mx-auto">
-              Garanta o seu lugar no nosso hostel ou reserve os melhores equipamentos para o seu evento hoje mesmo.
+              {t("home_cta_ask")}
             </p>
             <div className="mt-10 flex justify-center gap-4">
               <Link to="/contacto" className="btn-primary">
-                Falar Connosco
+                {t("home_cta_ask")}
               </Link>
             </div>
           </div>

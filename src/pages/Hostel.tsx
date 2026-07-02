@@ -146,7 +146,7 @@ export default function Hostel() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <Link to="/servicos" className="inline-flex items-center space-x-2 text-white/80 hover:text-primary mb-8 transition-colors">
               <ArrowLeft size={20} />
-              <span className="font-bold uppercase tracking-widest text-xs">Voltar aos Serviços</span>
+              <span className="font-bold uppercase tracking-widest text-xs">{t("hostel_back_to_services")}</span>
             </Link>
             <h1 className="text-6xl md:text-8xl font-display font-bold text-white uppercase tracking-tighter leading-none">
               GORILA <br />
@@ -160,7 +160,7 @@ export default function Hostel() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-12">
             <div className="bg-white p-12 rounded-2xl shadow-2xl border border-zinc-100">
-              <h2 className="text-3xl font-display font-bold uppercase tracking-tight mb-6">O Conceito</h2>
+              <h2 className="text-3xl font-display font-bold uppercase tracking-tight mb-6">{t("hostel_concept_title")}</h2>
               <p className="text-zinc-600 text-lg leading-relaxed mb-8">
                 O Gorila Hostel não é apenas um lugar para dormir. É um hub criativo em Bissau, desenhado para nómadas digitais, artistas e viajantes que procuram uma experiência autêntica e produtiva.
               </p>
@@ -185,8 +185,8 @@ export default function Hostel() {
               <AvailabilityDot livre={false} />
               <span className="text-xs text-zinc-400">
                 {dataInicio && dataFim && dataFim > dataInicio
-                  ? "Atualizado para as datas do formulário"
-                  : "Indicador geral; escolha datas para verificar o calendário"}
+                  ? t("hostel_availability_updated")
+                  : t("hostel_availability_choose_dates")}
               </span>
             </div>
 
@@ -216,7 +216,7 @@ export default function Hostel() {
                       <p className="text-zinc-500 text-sm mb-4 line-clamp-2">{room.descricao}</p>
                       <div className="flex items-center justify-between pt-6 border-t border-zinc-50">
                         <div className="flex flex-col">
-                          <span className="text-xs font-bold text-zinc-400 uppercase">Por noite</span>
+                          <span className="text-xs font-bold text-zinc-400 uppercase">{t("hostel_per_night")}</span>
                           <span className="text-2xl font-black text-secondary">{formatPrice(room.preco_noite)}</span>
                         </div>
                         <button
@@ -240,7 +240,7 @@ export default function Hostel() {
 
           <div className="lg:col-span-1">
             <div className="bg-secondary text-white p-10 rounded-2xl sticky top-24 shadow-2xl">
-              <h3 className="text-2xl font-display font-bold uppercase mb-8 text-primary">Reservar Agora</h3>
+              <h3 className="text-2xl font-display font-bold uppercase mb-8 text-primary">{t("hostel_title")}</h3>
               <form ref={formRef} className="space-y-6" onSubmit={handleReserva}>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Nome</label>
@@ -343,7 +343,7 @@ export default function Hostel() {
                   disabled={status === "loading" || quartosLivres.length === 0}
                   className="w-full btn-primary mt-4 disabled:opacity-50"
                 >
-                  {status === "loading" ? "A enviar..." : "Confirmar Reserva"}
+                  {status === "loading" ? t("contact_status_loading") : t("hostel_confirm_booking")}
                 </button>
                 {status === "ok" && <p className="text-emerald-400 text-sm font-bold">Reserva registada com sucesso!</p>}
                 {status === "error" && <p className="text-red-400 text-sm font-bold">{errorMsg}</p>}

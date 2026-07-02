@@ -11,7 +11,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [added, setAdded] = useState(false);
-  const { formatPrice } = useSettings();
+  const { formatPrice, t } = useSettings();
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -51,13 +51,13 @@ export default function ProductDetail() {
     navigate("/loja/carrinho");
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center">A carregar...</div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center">{t("generic_loading_service")}</div>;
   if (!product?.id) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <p className="text-zinc-500 font-bold">Produto não encontrado</p>
+        <p className="text-zinc-500 font-bold">{t("product_not_found")}</p>
         <Link to="/loja" className="btn-primary">
-          Voltar à Loja
+          {t("product_back_to_store")}
         </Link>
       </div>
     );
@@ -89,7 +89,7 @@ export default function ProductDetail() {
 
             <div className="prose prose-zinc mb-12">
               <p className="text-zinc-500 leading-relaxed text-lg">
-                {product.descricao || "Equipamento profissional da Gorila com performance e durabilidade garantidas."}
+                {product.descricao || t("product_description_fallback")}
               </p>
             </div>
 
@@ -100,14 +100,14 @@ export default function ProductDetail() {
                 className="w-full bg-black text-white py-6 rounded-2xl font-black uppercase tracking-widest flex items-center justify-center space-x-3 hover:bg-emerald-500 hover:text-black transition-all hover:scale-[1.02]"
               >
                 {added ? <Check size={24} /> : <ShoppingCart size={24} />}
-                <span>{added ? "Adicionado!" : "Adicionar ao Carrinho"}</span>
+                <span>{added ? t("product_added") : t("product_add_to_cart")}</span>
               </button>
               <button
                 type="button"
                 onClick={handleBuyNow}
                 className="w-full border-2 border-zinc-200 text-zinc-900 py-6 rounded-2xl font-black uppercase tracking-widest hover:border-black transition-all"
               >
-                Comprar Agora
+                {t("product_buy_now")}
               </button>
             </div>
 
@@ -116,19 +116,19 @@ export default function ProductDetail() {
                 <div className="mx-auto w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-400">
                   <Truck size={20} />
                 </div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Entrega Rápida</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{t("product_feature_fast_delivery")}</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="mx-auto w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-400">
                   <Shield size={20} />
                 </div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Garantia 2 Anos</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{t("product_feature_warranty")}</p>
               </div>
               <div className="text-center space-y-2">
                 <div className="mx-auto w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-400">
                   <RotateCcw size={20} />
                 </div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Devolução Grátis</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{t("product_feature_free_return")}</p>
               </div>
             </div>
           </div>

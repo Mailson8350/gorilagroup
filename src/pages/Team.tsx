@@ -78,7 +78,7 @@ export default function Team() {
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : members.length === 0 ? (
-          <p className="text-center text-zinc-500 font-medium py-16">A equipa será publicada em breve.</p>
+          <p className="text-center text-zinc-500 font-medium py-16">{t("team_no_members")}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {members.map((member, idx) => {

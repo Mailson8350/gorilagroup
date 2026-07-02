@@ -35,7 +35,7 @@ export default function Services() {
             className="inline-flex items-center gap-2 mt-8 bg-primary text-secondary px-6 py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform"
           >
             <ShoppingBag size={18} />
-            Visitar loja
+            {t("services_visit_store")}
           </Link>
         </div>
         <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/10 -skew-x-12 translate-x-1/4" />

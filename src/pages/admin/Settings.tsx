@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import {
   Save,
   Globe,
@@ -304,9 +304,11 @@ export default function AdminSettings() {
                 ["social_github", "GitHub"],
               ] as [keyof SiteSettings, string][]
             ).map(([key, label]) => (
-              <Field key={key} label={label}>
-                <input className={inputClass} value={form[key]} onChange={(e) => set(key, e.target.value)} placeholder="https://..." />
-              </Field>
+              <div key={key}>
+                <Field label={label}>
+                  <input className={inputClass} value={form[key]} onChange={(e) => set(key, e.target.value)} placeholder="https://..." />
+                </Field>
+              </div>
             ))}
           </div>
         )}

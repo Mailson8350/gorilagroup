@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, Mail, CheckCircle2, XCircle, Trash2, Home, Plus, Save, Edit, X } from "lucide-react";
 import ImageField from "../../components/admin/ImageField";
 import { mediaUrl } from "../../lib/media";
-import { adminFetch, adminFetchJson } from "../../lib/adminApi";
+import { adminFetch, adminFetchJson, isAdminFetchError } from "../../lib/adminApi";
 import AdminErrorBanner from "../../components/admin/AdminErrorBanner";
 
 interface Reserva {
@@ -57,7 +57,8 @@ export default function AdminReservations() {
 
       if (!resRes.ok) {
         setReservas([]);
-        setFetchError(resRes.error);
+        if (isAdminFetchError(resRes)) setFetchError(resRes.error);
+        else setFetchError("Erro ao carregar reservas.");
       } else {
         setReservas(
           resRes.data.map((r) => ({

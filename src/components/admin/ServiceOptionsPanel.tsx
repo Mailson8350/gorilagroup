@@ -3,7 +3,7 @@ import { Plus, Save, Trash2, X, Edit } from "lucide-react";
 import ImageField from "./ImageField";
 import MediaImage from "../MediaImage";
 import AdminErrorBanner from "./AdminErrorBanner";
-import { adminFetchJson, adminFetchList } from "../../lib/adminApi";
+import { adminFetchJson, adminFetchList, isAdminFetchError } from "../../lib/adminApi";
 
 export interface OpcaoServico {
   id: number;
@@ -45,11 +45,15 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
     setLoading(true);
     setLoadError(null);
     const result = await adminFetchList<OpcaoServico>(`/api/admin/servicos/${encodeURIComponent(servicoId)}/opcoes`);
-    if (result.ok) {
-      setOpcoes(result.data);
-    } else {
+    if (!result.ok) {
       setOpcoes([]);
-      setLoadError(result.error);
+      if (isAdminFetchError(result)) {
+        setLoadError(result.error);
+      } else {
+        setLoadError("Erro inesperado ao carregar opções.");
+      }
+    } else {
+      setOpcoes(result.data);
     }
     setLoading(false);
   }, [servicoId]);
@@ -76,8 +80,10 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
         setShowModal(false);
         setForm(null);
         await fetchOpcoes();
-      } else {
+      } else if (isAdminFetchError(result)) {
         alert(result.error || "Erro ao guardar opção");
+      } else {
+        alert("Erro ao guardar opção");
       }
     } finally {
       setSaving(false);
@@ -88,7 +94,8 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
     if (!confirm("Eliminar esta opção?")) return;
     const result = await adminFetchJson(`/api/admin/opcoes-servico/${id}`, { method: "DELETE" });
     if (result.ok) await fetchOpcoes();
-    else alert(result.error || "Erro ao eliminar");
+    else if (isAdminFetchError(result)) alert(result.error || "Erro ao eliminar");
+    else alert("Erro ao eliminar");
   };
 
   if (servicoId === "hostel") {

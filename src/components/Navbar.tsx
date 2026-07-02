@@ -125,7 +125,7 @@ export default function Navbar() {
               className="block w-full text-center bg-primary text-secondary px-3 py-3 rounded-md text-base font-bold mt-4"
               onClick={() => setIsOpen(false)}
             >
-              Reservar Agora
+              {t("reserve_now")}
             </Link>
           </div>
         </div>

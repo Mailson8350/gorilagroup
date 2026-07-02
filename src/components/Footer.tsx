@@ -12,7 +12,7 @@ const SOCIAL = [
 ];
 
 export default function Footer() {
-  const { siteConfig } = useSettings();
+  const { siteConfig, t } = useSettings();
 
   return (
     <footer className="bg-secondary text-white pt-24 pb-12 border-t border-white/5">
@@ -51,13 +51,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-display font-bold uppercase tracking-widest mb-8 text-white">Empresa</h4>
+            <h4 className="text-sm font-display font-bold uppercase tracking-widest mb-8 text-white">{t("footer_company")}</h4>
             <ul className="space-y-4">
               {[
-                { label: "Sobre Nós", path: "/sobre" },
-                { label: "Portfólio", path: "/portfolio" },
-                { label: "Equipa", path: "/equipa" },
-                { label: "Contacto", path: "/contacto" },
+                { label: t("about"), path: "/sobre" },
+                { label: t("portfolio"), path: "/portfolio" },
+                { label: t("team"), path: "/equipa" },
+                { label: t("contact"), path: "/contacto" },
               ].map((item) => (
                 <li key={item.path}>
                   <Link to={item.path} className="text-zinc-400 hover:text-primary text-sm transition-colors">
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-display font-bold uppercase tracking-widest mb-8 text-white">Serviços</h4>
+            <h4 className="text-sm font-display font-bold uppercase tracking-widest mb-8 text-white">{t("footer_services")}</h4>
             <ul className="space-y-4">
               {[
                 { label: "Hostel", path: "/servicos/hostel" },
@@ -88,7 +88,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-display font-bold uppercase tracking-widest mb-8 text-white">Contacto</h4>
+            <h4 className="text-sm font-display font-bold uppercase tracking-widest mb-8 text-white">{t("footer_contact")}</h4>
             <ul className="space-y-6">
               {siteConfig.contact_address && (
                 <li className="flex items-start space-x-3">
