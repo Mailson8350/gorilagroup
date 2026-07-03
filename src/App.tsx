@@ -1,5 +1,26 @@
-import { ReactNode } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { ReactNode, useLayoutEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+
+function ScrollRestorationHandler() {
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      const element = document.getElementById(id);
+
+      if (element) {
+        element.scrollIntoView({ behavior: "auto" });
+      }
+
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
 
 // Public Pages
 import Home from "./pages/Home";
@@ -66,6 +87,7 @@ export default function App() {
     <SettingsProvider>
       <CartProvider>
       <Router>
+        <ScrollRestorationHandler />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />

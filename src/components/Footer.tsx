@@ -76,7 +76,6 @@ export default function Footer() {
                 { label: "GB Som", path: "/servicos/gb-som" },
                 { label: "Gorila Eletrónica", path: "/servicos/gorila-eletronica" },
                 { label: "Gorila Mininus", path: "/servicos/gorila-mininus" },
-                { label: "Sala de Eventos", path: "/servicos/sala-eventos" },
               ].map((item) => (
                 <li key={item.path}>
                   <Link to={item.path} className="text-zinc-400 hover:text-primary text-sm transition-colors">
