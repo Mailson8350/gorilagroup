@@ -34,6 +34,40 @@ export default function ProductDetail() {
     if (id) fetchProduct();
   }, [id]);
 
+  // Inject Product JSON-LD for SEO
+  useEffect(() => {
+    try {
+      if (!product?.id) return;
+      const idStr = `product-jsonld-${product.id}`;
+      let script = document.getElementById(idStr) as HTMLScriptElement | null;
+      const jsonld = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        name: product.nome,
+        image: [product.imagem || ""].map((u: string) => (u ? u : undefined)).filter(Boolean),
+        description: product.descricao || undefined,
+        sku: product.id,
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "XOF",
+          price: product.preco ?? undefined,
+          availability: "https://schema.org/InStock",
+          url: window.location.href,
+        },
+      } as Record<string, unknown>;
+
+      if (!script) {
+        script = document.createElement("script");
+        script.id = idStr;
+        script.type = "application/ld+json";
+        document.head.appendChild(script);
+      }
+      script.text = JSON.stringify(jsonld);
+    } catch (e) {
+      // ignore
+    }
+  }, [product]);
+
   const handleAddToCart = () => {
     if (!product?.id) return;
     addItem({

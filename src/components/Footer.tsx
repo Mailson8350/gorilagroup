@@ -58,6 +58,7 @@ export default function Footer() {
                 { label: t("portfolio"), path: "/portfolio" },
                 { label: t("team"), path: "/equipa" },
                 { label: t("contact"), path: "/contacto" },
+                { label: "Privacy", path: "/privacy" },
               ].map((item) => (
                 <li key={item.path}>
                   <Link to={item.path} className="text-zinc-400 hover:text-primary text-sm transition-colors">

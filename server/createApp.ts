@@ -86,6 +86,27 @@ export function createApp(): express.Application {
     })
   );
 
+  // Robots and sitemap endpoints
+  app.get("/robots.txt", (_req, res) => {
+    const host = (process.env.SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+    const body = `User-agent: *\nAllow: /\nSitemap: ${host}/sitemap.xml\n`;
+    res.type("text/plain").send(body);
+  });
+
+  app.get(
+    "/sitemap.xml",
+    asyncHandler(async (_req, res) => {
+      const host = (process.env.SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+      const urls = ["/", "/sobre", "/loja", "/servicos", "/servicos/hostel", "/portfolio", "/equipa", "/contacto", "/loja/carrinho"];
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+        .map(
+          (u) => `<url><loc>${host}${u}</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>`
+        )
+        .join("\n")}\n</urlset>`;
+      res.type("application/xml").send(xml);
+    })
+  );
+
   app.get(
     "/api/site-config",
     asyncHandler(async (_req, res) => {

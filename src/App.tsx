@@ -44,6 +44,8 @@ import AdminPortfolio from "./pages/admin/Portfolio";
 import AdminCategories from "./pages/admin/Categories";
 import AdminSettings from "./pages/admin/Settings";
 import SeoHead from "./components/SeoHead";
+import CookieConsent from "./components/CookieConsent";
+import Privacy from "./pages/Privacy";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -62,6 +64,7 @@ const PublicLayout = ({ children }: { children: ReactNode }) => (
   <div className="min-h-screen flex flex-col bg-stone-50">
     <SeoHead />
     <Navbar />
+    <CookieConsent />
     <main className="flex-grow">{children}</main>
     <Footer />
   </div>
@@ -104,6 +107,7 @@ export default function App() {
           <Route path="/equipa" element={<PublicLayout><Team /></PublicLayout>} />
           <Route path="/sobre" element={<PublicLayout><AbooutPage /></PublicLayout>} />
           <Route path="/contacto" element={<PublicLayout><Contact /></PublicLayout>} />
+          <Route path="/privacy" element={<PublicLayout><Privacy /></PublicLayout>} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
