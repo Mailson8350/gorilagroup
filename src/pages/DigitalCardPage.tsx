@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  ArrowUpRight,
   Building2,
   Download,
   Globe,
@@ -46,10 +45,6 @@ export default function DigitalCardPage() {
     return null;
   }
 
-  const canonicalUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/${profile.slug}`
-    : `https://www.grupogorila.com/${profile.slug}`;
-
   const vCard = [
     "BEGIN:VCARD",
     "VERSION:3.0",
@@ -62,14 +57,9 @@ export default function DigitalCardPage() {
     "END:VCARD",
   ].join("\n");
 
-  const handleDownloadVCard = () => {
-    const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${profile.slug}.vcf`;
-    link.click();
-    URL.revokeObjectURL(url);
+  const handleSaveContact = () => {
+    const contactUrl = `data:text/vcard;charset=utf-8,${encodeURIComponent(vCard)}`;
+    window.open(contactUrl, "_blank", "noopener,noreferrer");
   };
 
   const handleWhatsApp = () => {
@@ -121,7 +111,7 @@ export default function DigitalCardPage() {
 
                 <div className="mt-8 flex flex-wrap gap-3">
                   <button
-                    onClick={handleDownloadVCard}
+                    onClick={handleSaveContact}
                     className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-5 py-3 text-sm font-bold text-white transition hover:scale-[1.01]"
                   >
                     <Download size={18} />
