@@ -34,6 +34,8 @@ interface SettingsContextType {
   refreshSiteConfig: () => Promise<void>;
   formatPrice: (priceXOF: number) => string;
   t: (key: string, params?: TranslationParams) => string;
+  themeMode: "light" | "dark";
+  toggleTheme: () => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -534,8 +536,16 @@ const translations: Record<Language, Record<string, string>> = {
 };
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const getInitialThemeMode = (): "light" | "dark" => {
+    if (typeof window === "undefined") return "light";
+    const saved = localStorage.getItem("themeMode");
+    if (saved === "light" || saved === "dark") return saved;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+
   const [language, setLanguage] = useState<Language>(() => (localStorage.getItem("lang") as Language) || "pt");
   const [currency, setCurrency] = useState<Currency>(() => (localStorage.getItem("cur") as Currency) || "XOF");
+  const [themeMode, setThemeMode] = useState<"light" | "dark">(() => getInitialThemeMode());
   const [services, setServices] = useState<ServiceDefinition[]>([]);
   const [siteConfig, setSiteConfig] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const [rates, setRates] = useState<Record<Currency, number>>({ XOF: 1, EUR: 0.0015, USD: 0.0016 });
@@ -588,6 +598,11 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [fetchSiteConfig]);
 
   useEffect(() => {
+    localStorage.setItem("themeMode", themeMode);
+    document.documentElement.classList.toggle("dark", themeMode === "dark");
+  }, [themeMode]);
+
+  useEffect(() => {
     localStorage.setItem("lang", language);
   }, [language]);
 
@@ -601,6 +616,10 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       style: "currency",
       currency: currency,
     }).format(converted);
+  };
+
+  const toggleTheme = () => {
+    setThemeMode((mode) => (mode === "dark" ? "light" : "dark"));
   };
 
   const t = (key: string, params: TranslationParams = {}) => {
@@ -624,6 +643,8 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         refreshSiteConfig: fetchSiteConfig,
         formatPrice,
         t,
+        themeMode,
+        toggleTheme,
       }}
     >
       {children}

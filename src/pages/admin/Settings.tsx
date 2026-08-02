@@ -14,12 +14,13 @@ import ImageField from "../../components/admin/ImageField";
 import { useSettings } from "../../contexts/SettingsContext";
 import { DEFAULT_SITE_SETTINGS, mergeSiteSettings, type SiteSettings } from "../../lib/siteConfigDefaults";
 
-type TabId = "geral" | "sobre" | "contactos" | "redes" | "banners" | "seo";
+type TabId = "geral" | "sobre" | "contactos" | "cartao" | "redes" | "banners" | "seo";
 
 const TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
   { id: "geral", label: "Geral", icon: <Globe size={18} /> },
   { id: "sobre", label: "Sobre Nós", icon: <Users size={18} /> },
   { id: "contactos", label: "Contactos", icon: <Phone size={18} /> },
+  { id: "cartao", label: "Cartão Digital", icon: <Share2 size={18} /> },
   { id: "redes", label: "Redes Sociais", icon: <Share2 size={18} /> },
   { id: "banners", label: "Banners", icon: <ImageIcon size={18} /> },
   { id: "seo", label: "SEO", icon: <Search size={18} /> },
@@ -155,7 +156,7 @@ export default function AdminSettings() {
             type="button"
             onClick={() => setTab(t.id)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
-              tab === t.id ? "bg-black text-white" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              tab === t.id ? "bg-primary text-secondary" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
             }`}
           >
             {t.icon}
@@ -291,6 +292,39 @@ export default function AdminSettings() {
           </div>
         )}
 
+        {tab === "cartao" && (
+          <div className="space-y-5">
+            <Field label="Nome completo">
+              <input className={inputClass} value={form.digital_card_name} onChange={(e) => set("digital_card_name", e.target.value)} />
+            </Field>
+            <Field label="Cargo">
+              <input className={inputClass} value={form.digital_card_title} onChange={(e) => set("digital_card_title", e.target.value)} />
+            </Field>
+            <Field label="Empresa">
+              <input className={inputClass} value={form.digital_card_company} onChange={(e) => set("digital_card_company", e.target.value)} />
+            </Field>
+            <Field label="Descrição profissional">
+              <textarea rows={4} className={inputClass} value={form.digital_card_description} onChange={(e) => set("digital_card_description", e.target.value)} />
+            </Field>
+            <Field label="Telefone">
+              <input className={inputClass} value={form.digital_card_phone} onChange={(e) => set("digital_card_phone", e.target.value)} />
+            </Field>
+            <Field label="E-mail corporativo">
+              <input type="email" className={inputClass} value={form.digital_card_email} onChange={(e) => set("digital_card_email", e.target.value)} />
+            </Field>
+            <Field label="WhatsApp">
+              <input className={inputClass} value={form.digital_card_whatsapp} onChange={(e) => set("digital_card_whatsapp", e.target.value)} />
+            </Field>
+            <Field label="Website">
+              <input className={inputClass} value={form.digital_card_website} onChange={(e) => set("digital_card_website", e.target.value)} placeholder="https://..." />
+            </Field>
+            <Field label="LinkedIn">
+              <input className={inputClass} value={form.digital_card_linkedin} onChange={(e) => set("digital_card_linkedin", e.target.value)} placeholder="https://..." />
+            </Field>
+            <ImageField label="Foto do perfil" value={form.digital_card_photo} onChange={(v) => set("digital_card_photo", v)} folder="site" />
+          </div>
+        )}
+
         {tab === "redes" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {(
@@ -376,7 +410,7 @@ export default function AdminSettings() {
           <button
             type="submit"
             disabled={saving}
-            className="bg-black text-white px-8 py-3 rounded-xl font-black uppercase tracking-widest flex items-center gap-2 hover:bg-emerald-500 hover:text-black transition-all disabled:opacity-50"
+            className="btn-primary flex items-center gap-2 disabled:opacity-50"
           >
             <Save size={20} />
             {saving ? "A guardar..." : "Guardar configurações"}

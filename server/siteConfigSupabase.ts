@@ -13,6 +13,7 @@ const IMAGE_KEYS = new Set([
   "equipa_banner_url",
   "portfolio_banner_url",
   "og_image",
+  "digital_card_photo",
 ]);
 
 const MAX_LEN: Record<string, number> = {
@@ -31,6 +32,15 @@ const MAX_LEN: Record<string, number> = {
   contact_address: 500,
   contact_maps_url: 2000,
   contact_hours: 300,
+  digital_card_name: 200,
+  digital_card_title: 120,
+  digital_card_company: 200,
+  digital_card_description: 2000,
+  digital_card_phone: 120,
+  digital_card_email: 200,
+  digital_card_whatsapp: 120,
+  digital_card_website: 500,
+  digital_card_linkedin: 500,
   banner_sliders: 50000,
 };
 

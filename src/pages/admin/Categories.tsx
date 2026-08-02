@@ -53,7 +53,7 @@ export default function AdminCategories() {
         <p className="text-zinc-500 font-medium">Organize os produtos da loja por categoria.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 border border-zinc-100 flex flex-wrap gap-4 items-end">
+      <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] p-6 border border-zinc-100 shadow-sm flex flex-wrap gap-4 items-end">
         <div className="flex-1 min-w-[200px]">
           <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-1">Nome</label>
           <input
@@ -63,7 +63,7 @@ export default function AdminCategories() {
             className="w-full bg-zinc-50 rounded-xl px-4 py-3 mt-1 focus:ring-2 focus:ring-emerald-500 border-none"
           />
         </div>
-        <button type="submit" className="bg-black text-white px-6 py-3 rounded-xl font-bold hover:bg-emerald-500 hover:text-black transition-all flex items-center gap-2">
+        <button type="submit" className="btn-primary inline-flex items-center gap-2">
           <Plus size={18} />
           {editingId ? "Guardar" : "Adicionar"}
         </button>
@@ -74,7 +74,7 @@ export default function AdminCategories() {
               setEditingId(null);
               setNome("");
             }}
-            className="px-6 py-3 rounded-xl font-bold text-zinc-500 hover:bg-zinc-100"
+            className="px-6 py-3 rounded-xl font-bold text-zinc-500 bg-zinc-100 hover:bg-zinc-200 transition-all"
           >
             Cancelar
           </button>

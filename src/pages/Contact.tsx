@@ -3,6 +3,27 @@ import { Mail, Phone, MapPin, Check, MessageSquare, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import { useSettings } from "../contexts/SettingsContext";
 
+function getSafeMapUrl(rawUrl?: string) {
+  if (!rawUrl) return null;
+
+  try {
+    const url = new URL(rawUrl);
+    const host = url.hostname.toLowerCase();
+    const path = url.pathname.toLowerCase();
+    const search = url.search.toLowerCase();
+
+    const isEmbeddableGoogleMap =
+      (host === "www.google.com" || host === "google.com" || host === "maps.google.com") &&
+      (path.includes("/maps/embed") || search.includes("output=embed") || search.includes("pb="));
+
+    if (isEmbeddableGoogleMap) return rawUrl;
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export default function Contact() {
   const { siteConfig, t } = useSettings();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -103,17 +124,40 @@ export default function Contact() {
                 </div>
               )}
 
-              {siteConfig.contact_maps_url && (
-                <div className="mt-6 rounded-xl overflow-hidden border border-zinc-100 aspect-video">
-                  <iframe
-                    title={t("contact_map_title")}
-                    src={siteConfig.contact_maps_url}
-                    className="w-full h-full border-0"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                </div>
-              )}
+              {(() => {
+                const safeMapUrl = getSafeMapUrl(siteConfig.contact_maps_url);
+
+                if (!siteConfig.contact_maps_url) return null;
+
+                if (!safeMapUrl) {
+                  return (
+                    <div className="mt-6 rounded-xl border border-zinc-100 bg-zinc-50 p-6 text-sm text-zinc-600">
+                      <p className="font-semibold text-secondary mb-2">{t("contact_map_title")}</p>
+                      <p className="mb-4">O link do mapa não está em um formato compatível com incorporação nesta página.</p>
+                      <a
+                        href={siteConfig.contact_maps_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        Abrir mapa em uma nova aba
+                      </a>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="mt-6 rounded-xl overflow-hidden border border-zinc-100 aspect-video">
+                    <iframe
+                      title={t("contact_map_title")}
+                      src={safeMapUrl}
+                      className="w-full h-full border-0"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+                );
+              })()}
             </div>
           </div>
 

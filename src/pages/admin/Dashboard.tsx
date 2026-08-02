@@ -185,7 +185,7 @@ export default function AdminDashboard() {
               <h3 className="text-2xl font-display font-bold uppercase tracking-tight text-secondary">Atividade Recente</h3>
               <p className="text-sm text-zinc-500 mt-1">Os últimos eventos e contactos do painel de administração.</p>
             </div>
-            <button className="self-start sm:self-auto inline-flex items-center justify-center rounded-full border border-primary/20 bg-primary/5 px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-primary transition hover:bg-primary/10">
+            <button className="btn-primary rounded-full px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em]">
               Ver tudo
             </button>
           </div>
