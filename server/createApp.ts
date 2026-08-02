@@ -41,7 +41,7 @@ function authenticateAdmin(req: Request, res: Response, next: NextFunction) {
 function asyncHandler(fn: (req: Request, res: Response) => Promise<void>) {
   return (req: Request, res: Response, next: NextFunction) => {
     fn(req, res).catch((e: Error) => {
-      console.error(e);
+      if (process.env.NODE_ENV !== "production") console.error(e);
       if (!res.headersSent) res.status(500).json({ error: e.message });
     });
   };
@@ -59,7 +59,6 @@ export function createApp(): express.Application {
   app.use(express.json({ limit: "10mb" }));
 
   app.use((req, _res, next) => {
-    if (req.url.startsWith("/api")) console.log(`[API] ${req.method} ${req.url}`);
     next();
   });
 
@@ -611,7 +610,6 @@ export function createApp(): express.Application {
   });
 
   app.use("/api", (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    console.error("API Error:", err);
     res.status(500).json({ error: err.message || "Internal Server Error" });
   });
 
