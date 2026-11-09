@@ -10,6 +10,7 @@ import {
   parseExistingId,
   countReservationNights,
   isRoomBookedForDates,
+  countActiveReservations,
   tableCount,
   normDisponivel,
 } from "./helpers";
@@ -644,16 +645,17 @@ function registerHostelAndRest(app: express.Application) {
     "/api/admin/quartos",
     authenticateAdmin,
     asyncHandler(async (req, res) => {
-      const { id, nome, descricao, preco_noite, imagem, disponivel } = req.body;
+      const { id, nome, descricao, preco_noite, imagem, disponivel, num_quartos } = req.body;
       const supabase = getSupabaseAdmin();
       const disp = disponivel === 0 || disponivel === false ? false : true;
+      const totalUnidades = Math.max(1, parseInt(String(num_quartos ?? 1), 10) || 1);
       const quartoId = parseExistingId(id);
       if (quartoId) {
         const { data: prev } = await supabase.from("quartos").select("imagem").eq("id", quartoId).maybeSingle();
         const imagemUrl = await img("quartos", imagem, prev?.imagem);
         const { error } = await supabase
           .from("quartos")
-          .update({ nome, descricao, preco_noite, imagem: imagemUrl, disponivel: disp })
+          .update({ nome, descricao, preco_noite, imagem: imagemUrl, disponivel: disp, num_quartos: totalUnidades })
           .eq("id", quartoId);
         if (error) throw error;
         res.json({ success: true, id: quartoId });
@@ -661,7 +663,7 @@ function registerHostelAndRest(app: express.Application) {
         const imagemUrl = await img("quartos", imagem);
         const { data, error } = await supabase
           .from("quartos")
-          .insert({ nome, descricao, preco_noite, imagem: imagemUrl, disponivel: disp })
+          .insert({ nome, descricao, preco_noite, imagem: imagemUrl, disponivel: disp, num_quartos: totalUnidades })
           .select("id")
           .single();
         if (error) throw error;
@@ -703,11 +705,20 @@ function registerHostelAndRest(app: express.Application) {
       if (error) throw error;
       const enriched = await Promise.all(
         (data || []).map(async (q) => {
+          const totalUnidades = Math.max(1, Number(q.num_quartos) || 1);
           let livre = normDisponivel(q.disponivel) === 1;
           if (checkDates && livre) {
-            livre = !(await isRoomBookedForDates(q.id, dataInicio, dataFim));
+            const reservasAtivas = await countActiveReservations(q.id, dataInicio, dataFim);
+            // Esgotado quando as reservas ativas atingem o total de unidades disponíveis
+            livre = reservasAtivas < totalUnidades;
           }
-          return { ...q, disponivel: normDisponivel(q.disponivel), livre, ocupado: !livre };
+          return {
+            ...q,
+            num_quartos: totalUnidades,
+            disponivel: normDisponivel(q.disponivel),
+            livre,
+            ocupado: !livre,
+          };
         })
       );
       res.json(enriched);
@@ -748,8 +759,13 @@ function registerHostelAndRest(app: express.Application) {
         res.status(400).json({ error: "Este quarto não está disponível." });
         return;
       }
-      if (await isRoomBookedForDates(quarto_id, data_inicio, data_fim)) {
-        res.status(409).json({ error: "Quarto indisponível nas datas selecionadas." });
+      const reservasAtivas = await countActiveReservations(quarto_id, data_inicio, data_fim);
+      const totalUnidades = Math.max(1, Number(quarto.num_quartos) || 1);
+      if (reservasAtivas >= totalUnidades) {
+        res.status(409).json({
+          error:
+            "Quarto esgotado nas datas selecionadas (todas as unidades já reservadas). Tente outro período.",
+        });
         return;
       }
       const valor_alojamento = quarto.preco_noite * noites;

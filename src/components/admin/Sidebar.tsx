@@ -41,7 +41,7 @@ export default function AdminSidebar() {
   return (
     <aside className="w-72 bg-zinc-950 text-zinc-400 flex flex-col border-r border-zinc-900">
       <div className="p-8">
-        <Link to="/admin/dashboard" className="text-white text-2xl font-black uppercase italic tracking-tighter">
+        <Link to="/admin/dashboard" translate="no" className="text-white text-2xl font-black uppercase italic tracking-tighter">
           Gorila <span className="text-emerald-500">Admin</span>
         </Link>
       </div>

@@ -26,6 +26,7 @@ interface Quarto {
   preco_noite: number;
   imagem: string;
   disponivel: number;
+  num_quartos?: number;
 }
 
 export default function AdminReservations() {
@@ -139,13 +140,13 @@ export default function AdminReservations() {
           </p>
         </div>
         <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-zinc-100">
-          <button 
+          <button
             onClick={() => setActiveTab('reservas')}
             className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'reservas' ? 'bg-black text-white shadow-lg' : 'text-zinc-500 hover:text-black'}`}
           >
             Reservas
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('quartos')}
             className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'quartos' ? 'bg-black text-white shadow-lg' : 'text-zinc-500 hover:text-black'}`}
           >
@@ -209,7 +210,7 @@ export default function AdminReservations() {
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                        res.status === 'pago' ? 'bg-emerald-100 text-emerald-700' : 
+                        res.status === 'pago' ? 'bg-emerald-100 text-emerald-700' :
                         res.status === 'cancelado' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'
                       }`}>
                         {res.status}
@@ -217,21 +218,21 @@ export default function AdminReservations() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end space-x-2">
-                        <button 
+                        <button
                           onClick={() => handleUpdateStatus(res.id, 'pago')}
                           className="p-2 text-emerald-500 hover:bg-emerald-50 rounded-lg transition-all"
                           title="Marcar como Pago"
                         >
                           <CheckCircle2 size={18} />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleUpdateStatus(res.id, 'cancelado')}
                           className="p-2 text-amber-500 hover:bg-amber-50 rounded-lg transition-all"
                           title="Cancelar"
                         >
                           <XCircle size={18} />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDeleteReserva(res.id)}
                           className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-all"
                           title="Eliminar"
@@ -249,8 +250,8 @@ export default function AdminReservations() {
       ) : (
         <div className="space-y-6">
           <div className="flex justify-end">
-             <button 
-                onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1 }); setShowQuartoModal(true); }}
+             <button
+                onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1, num_quartos: 1 }); setShowQuartoModal(true); }}
                 className="bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-400 transition-all shadow-lg"
               >
                 <Plus size={20} />
@@ -277,16 +278,19 @@ export default function AdminReservations() {
                     <h3 className="font-black uppercase italic tracking-tighter text-xl">{q.nome}</h3>
                     <div className="font-mono font-bold text-emerald-600">{q.preco_noite.toLocaleString()} F/noite</div>
                   </div>
+                  {typeof q.num_quartos === "number" && q.num_quartos > 1 && (
+                    <p className="text-xs text-zinc-400">{q.num_quartos} unidades deste quarto</p>
+                  )}
                   <p className="text-zinc-500 text-sm line-clamp-2">{q.descricao}</p>
                   <div className="flex items-center space-x-2 pt-2">
-                    <button 
+                    <button
                       onClick={() => { setEditingQuarto(q); setShowQuartoModal(true); }}
                       className="flex-1 bg-zinc-100 text-black py-2 rounded-xl font-bold flex items-center justify-center space-x-2 hover:bg-zinc-200 transition-all"
                     >
                       <Edit size={16} />
                       <span>Editar</span>
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleDeleteQuarto(q.id)}
                       className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-all"
                     >
@@ -315,12 +319,26 @@ export default function AdminReservations() {
               <div className="space-y-4">
                 <div>
                   <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Nome do Quarto</label>
-                  <input 
-                    required 
-                    value={editingQuarto?.nome} 
+                  <input
+                    required
+                    value={editingQuarto?.nome}
                     onChange={(e) => setEditingQuarto({...editingQuarto!, nome: e.target.value})}
-                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium" 
+                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium"
                   />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Número de Quartos Disponíveis</label>
+                  <input
+                    type="number"
+                    min={1}
+                    required
+                    value={editingQuarto?.num_quartos ?? 1}
+                    onChange={(e) => setEditingQuarto({...editingQuarto!, num_quartos: Math.max(1, Number(e.target.value) || 1)})}
+                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium font-mono"
+                  />
+                  <p className="text-[10px] text-zinc-400 ml-1 mt-1">
+                    Total de unidades deste quarto. Quando todas forem reservadas, o quarto fica esgotado até terminar uma das reservas.
+                  </p>
                 </div>
                 <div>
                   <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Preço por Noite</label>

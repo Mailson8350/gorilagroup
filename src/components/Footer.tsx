@@ -28,7 +28,7 @@ export default function Footer() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <span className="text-3xl font-display font-bold tracking-tighter uppercase text-primary">
+              <span translate="no" className="text-3xl font-display font-bold tracking-tighter uppercase text-primary">
                 {siteConfig.site_name}
               </span>
             </Link>
@@ -78,7 +78,7 @@ export default function Footer() {
                 { label: "Gorila Mininus", path: "/servicos/gorila-mininus" },
                 { label: "Sala de Eventos", path: "/servicos/sala-eventos" },
               ].map((item) => (
-                <li key={item.path}>
+                <li key={item.path} translate="no">
                   <Link to={item.path} className="text-zinc-400 hover:text-primary text-sm transition-colors">
                     {item.label}
                   </Link>

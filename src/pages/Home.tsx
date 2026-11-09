@@ -48,7 +48,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-9xl font-display font-bold text-white tracking-tighter uppercase leading-none">
+            <h1 translate="no" className="text-6xl md:text-9xl font-display font-bold text-white tracking-tighter uppercase leading-none">
               {siteTitle}
             </h1>
             <p className="mt-6 text-xl md:text-2xl text-zinc-300 font-medium tracking-wide">

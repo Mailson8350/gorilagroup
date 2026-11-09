@@ -57,7 +57,7 @@ export default function Store() {
       {/* Header */}
       <div className="bg-secondary text-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-display font-bold uppercase tracking-tighter">LOJA <span className="text-primary">GORILA</span></h1>
+          <h1 className="text-5xl font-display font-bold uppercase tracking-tighter">LOJA <span className="text-primary" translate="no">GORILA</span></h1>
           <p className="text-zinc-400 mt-4 max-w-xl text-lg">Equipamentos profissionais, eletrónica de ponta e acessórios exclusivos.</p>
         </div>
       </div>

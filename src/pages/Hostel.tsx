@@ -148,7 +148,7 @@ export default function Hostel() {
               <ArrowLeft size={20} />
               <span className="font-bold uppercase tracking-widest text-xs">Voltar aos Serviços</span>
             </Link>
-            <h1 className="text-6xl md:text-8xl font-display font-bold text-white uppercase tracking-tighter leading-none">
+            <h1 translate="no" className="text-6xl md:text-8xl font-display font-bold text-white uppercase tracking-tighter leading-none">
               GORILA <br />
               <span className="text-primary">HOSTEL.</span>
             </h1>

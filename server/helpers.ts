@@ -30,6 +30,27 @@ export async function isRoomBookedForDates(
   return (count ?? 0) > 0;
 }
 
+/**
+ * Conta quantas reservas ativas (não canceladas) existem para um quarto
+ * num determinado período, e se ainda há unidades livres.
+ */
+export async function countActiveReservations(
+  quartoId: number,
+  dataInicio: string,
+  dataFim: string
+): Promise<number> {
+  const supabase = getSupabaseAdmin();
+  const { count, error } = await supabase
+    .from("reservas")
+    .select("*", { count: "exact", head: true })
+    .eq("quarto_id", quartoId)
+    .neq("status", "cancelado")
+    .lt("data_inicio", dataFim)
+    .gt("data_fim", dataInicio);
+  if (error) throw error;
+  return count ?? 0;
+}
+
 export async function tableCount(table: string): Promise<number> {
   const supabase = getSupabaseAdmin();
   const { count, error } = await supabase.from(table).select("*", { count: "exact", head: true });

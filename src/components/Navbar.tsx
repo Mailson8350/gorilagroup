@@ -34,7 +34,7 @@ export default function Navbar() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <span className="text-2xl font-display font-bold tracking-tighter uppercase text-white group-hover:text-primary transition-colors">Gorila</span>
+              <span translate="no" className="text-2xl font-display font-bold tracking-tighter uppercase text-white group-hover:text-primary transition-colors">Gorila</span>
             </Link>
           </div>
           

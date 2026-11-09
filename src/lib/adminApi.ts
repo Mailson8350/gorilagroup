@@ -72,8 +72,10 @@ export async function adminFetchJson<T = unknown>(url: string, init?: RequestIni
 }
 
 export async function adminFetchList<T>(url: string): Promise<AdminFetchResult<T[]>> {
-  const result = await adminFetchJson<T[] | { error?: string }>(url);
-  if (!result.ok) return result;
+  const result = await adminFetchJson<unknown>(url);
+  if (!result.ok) {
+    return { ok: false, status: result.status, error: result.error, unauthorized: result.unauthorized };
+  }
   if (!Array.isArray(result.data)) {
     return {
       ok: false,
@@ -82,5 +84,5 @@ export async function adminFetchList<T>(url: string): Promise<AdminFetchResult<T
       unauthorized: false,
     };
   }
-  return { ok: true, data: result.data };
+  return { ok: true, data: result.data as T[] };
 }
