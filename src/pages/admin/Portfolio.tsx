@@ -107,7 +107,7 @@ export default function AdminPortfolio() {
         </div>
         <button 
           onClick={handleNew}
-          className="bg-black text-white px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-pink-500 hover:text-black transition-all shadow-lg"
+          className="btn-primary flex items-center space-x-2"
         >
           <Plus size={20} />
           <span>Novo Projeto</span>
@@ -127,7 +127,7 @@ export default function AdminPortfolio() {
                   key={p.id}
                   onClick={() => handleSelect(p)}
                   className={`w-full p-3 rounded-2xl flex items-center space-x-3 transition-all mb-2 ${
-                    selectedProject?.id === p.id ? "bg-black text-white shadow-lg" : "bg-white text-zinc-600 hover:bg-zinc-50"
+                    selectedProject?.id === p.id ? "bg-primary text-secondary shadow-lg" : "bg-white text-zinc-600 hover:bg-zinc-50"
                   }`}
                 >
                   <div className="w-12 h-12 rounded-xl bg-zinc-100 overflow-hidden flex-shrink-0">
@@ -237,7 +237,7 @@ export default function AdminPortfolio() {
                 <div className="flex-1" />
                 <button 
                   type="submit" 
-                  className="bg-black text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest flex items-center space-x-3 hover:bg-pink-500 hover:text-black transition-all shadow-xl"
+                  className="btn-primary flex items-center space-x-3"
                 >
                   <Save size={20} />
                   <span>{isNew ? "Publicar Projeto" : "Guardar Alterações"}</span>

@@ -42,11 +42,12 @@ async function startServer() {
 
   const PORT = Number(process.env.PORT) || 3000;
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Gorila — http://localhost:${PORT} (Supabase)`);
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`Gorila — http://localhost:${PORT} (Supabase)`);
+    }
   });
 }
 
-startServer().catch((e) => {
-  console.error(e);
+startServer().catch(() => {
   process.exit(1);
 });

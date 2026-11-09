@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { ReactNode, useLayoutEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 // Public Pages
 import Home from "./pages/Home";
@@ -11,52 +11,42 @@ import Contact from "./pages/Contact";
 import GenericServicePage from "./pages/GenericServicePage";
 import Portfolio from "./pages/Portfolio";
 import Team from "./pages/Team";
+import Privacy from "./pages/Privacy";
+import DigitalCardPage from "./pages/DigitalCardPage";
 
 // Admin Pages
 import AdminLogin from "./pages/admin/Login";
-import AdminDashboard from "./pages/admin/Dashboard";
-import AdminProducts from "./pages/admin/Products";
-import AdminMessages from "./pages/admin/Messages";
-import AdminReservations from "./pages/admin/Reservations";
-import AdminTeam from "./pages/admin/Team";
-import AdminPortfolio from "./pages/admin/Portfolio";
-import AdminCategories from "./pages/admin/Categories";
-import AdminSettings from "./pages/admin/Settings";
-import SeoHead from "./components/SeoHead";
+import { adminRoutes } from "./components/admin/menuConfig";
 
 // Components
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import AdminSidebar from "./components/admin/Sidebar";
-import AdminServices from "./pages/admin/Services";
+import PublicLayout from "./components/PublicLayout";
+import AdminShell from "./components/admin/AdminShell";
 
 // Context
 import { SettingsProvider } from "./contexts/SettingsContext";
 import { CartProvider } from "./contexts/CartContext";
 import Cart from "./pages/Cart";
-import AdminOrders from "./pages/admin/Orders";
-import AdminServiceRequests from "./pages/admin/ServiceRequests";
 
-const PublicLayout = ({ children }: { children: ReactNode }) => (
-  <div className="min-h-screen flex flex-col bg-stone-50">
-    <SeoHead />
-    <Navbar />
-    <main className="flex-grow">{children}</main>
-    <Footer />
-  </div>
-);
+function ScrollRestorationHandler() {
+  const location = useLocation();
 
-const AdminLayout = ({ children }: { children: ReactNode }) => {
-  const token = localStorage.getItem("adminToken");
-  if (!token) return <Navigate to="/admin/login" />;
+  useLayoutEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      const element = document.getElementById(id);
 
-  return (
-    <div className="flex min-h-screen bg-zinc-100">
-      <AdminSidebar />
-      <main className="flex-1 p-8">{children}</main>
-    </div>
-  );
-};
+      if (element) {
+        element.scrollIntoView({ behavior: "auto" });
+      }
+
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
 
 // Wrapper components for generic pages
 const AbooutPage = () => <GenericServicePage serviceId="sobre" />;
@@ -66,6 +56,7 @@ export default function App() {
     <SettingsProvider>
       <CartProvider>
       <Router>
+        <ScrollRestorationHandler />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
@@ -82,24 +73,19 @@ export default function App() {
           <Route path="/equipa" element={<PublicLayout><Team /></PublicLayout>} />
           <Route path="/sobre" element={<PublicLayout><AbooutPage /></PublicLayout>} />
           <Route path="/contacto" element={<PublicLayout><Contact /></PublicLayout>} />
+          <Route path="/privacy" element={<PublicLayout><Privacy /></PublicLayout>} />
+          <Route path="/:slug" element={<PublicLayout><DigitalCardPage /></PublicLayout>} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
-          <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
-          <Route path="/admin/produtos" element={<AdminLayout><AdminProducts /></AdminLayout>} />
-          <Route path="/admin/servicos" element={<AdminLayout><AdminServices /></AdminLayout>} />
-          <Route path="/admin/mensagens" element={<AdminLayout><AdminMessages /></AdminLayout>} />
-          <Route path="/admin/reservas" element={<AdminLayout><AdminReservations /></AdminLayout>} />
-          <Route path="/admin/equipa" element={<AdminLayout><AdminTeam /></AdminLayout>} />
-          <Route path="/admin/portfolio" element={<AdminLayout><AdminPortfolio /></AdminLayout>} />
-          <Route path="/admin/categorias" element={<AdminLayout><AdminCategories /></AdminLayout>} />
-          <Route path="/admin/configuracoes" element={<AdminLayout><AdminSettings /></AdminLayout>} />
+          {adminRoutes.map((item) => {
+            const Page = item.component;
+            return <Route key={item.path} path={item.path} element={<AdminShell><Page /></AdminShell>} />;
+          })}
           <Route path="/admin/site" element={<Navigate to="/admin/configuracoes" replace />} />
           <Route path="/admin/equipamentos" element={<Navigate to="/admin/servicos" replace />} />
           <Route path="/admin/eventos" element={<Navigate to="/admin/servicos" replace />} />
-          <Route path="/admin/pedidos" element={<AdminLayout><AdminOrders /></AdminLayout>} />
-          <Route path="/admin/solicitacoes" element={<AdminLayout><AdminServiceRequests /></AdminLayout>} />
         </Routes>
       </Router>
       </CartProvider>

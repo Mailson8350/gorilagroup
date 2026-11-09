@@ -42,7 +42,7 @@ function authenticateAdmin(req: Request, res: Response, next: NextFunction) {
 function asyncHandler(fn: (req: Request, res: Response) => Promise<void>) {
   return (req: Request, res: Response, next: NextFunction) => {
     fn(req, res).catch((e: Error) => {
-      console.error(e);
+      if (process.env.NODE_ENV !== "production") console.error(e);
       if (!res.headersSent) res.status(500).json({ error: e.message });
     });
   };
@@ -60,7 +60,6 @@ export function createApp(): express.Application {
   app.use(express.json({ limit: "10mb" }));
 
   app.use((req, _res, next) => {
-    if (req.url.startsWith("/api")) console.log(`[API] ${req.method} ${req.url}`);
     next();
   });
 
@@ -84,6 +83,27 @@ export function createApp(): express.Application {
         counts,
         timestamp: new Date().toISOString(),
       });
+    })
+  );
+
+  // Robots and sitemap endpoints
+  app.get("/robots.txt", (_req, res) => {
+    const host = (process.env.SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+    const body = `User-agent: *\nAllow: /\nSitemap: ${host}/sitemap.xml\n`;
+    res.type("text/plain").send(body);
+  });
+
+  app.get(
+    "/sitemap.xml",
+    asyncHandler(async (_req, res) => {
+      const host = (process.env.SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+      const urls = ["/", "/sobre", "/loja", "/servicos", "/servicos/hostel", "/portfolio", "/equipa", "/contacto", "/loja/carrinho"];
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+        .map(
+          (u) => `<url><loc>${host}${u}</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>`
+        )
+        .join("\n")}\n</urlset>`;
+      res.type("application/xml").send(xml);
     })
   );
 
@@ -591,7 +611,6 @@ export function createApp(): express.Application {
   });
 
   app.use("/api", (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    console.error("API Error:", err);
     res.status(500).json({ error: err.message || "Internal Server Error" });
   });
 

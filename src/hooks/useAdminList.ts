@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { adminFetchList } from "../lib/adminApi";
+import { adminFetchList, isAdminFetchError } from "../lib/adminApi";
 
 /** Lista admin com tratamento de auth/erros e refresh ao focar a janela. */
 export function useAdminList<T>(url: string) {
@@ -13,12 +13,16 @@ export function useAdminList<T>(url: string) {
     setLoading(true);
     setError(null);
     const result = await adminFetchList<T>(url);
-    if (result.ok) {
-      setData(result.data);
-    } else {
+    if (!result.ok) {
       setData([]);
-      setError(result.error);
-      if (result.unauthorized) navigate("/admin/login", { replace: true });
+      if (isAdminFetchError(result)) {
+        setError(result.error);
+        if (result.unauthorized) navigate("/admin/login", { replace: true });
+      } else {
+        setError("Erro inesperado.");
+      }
+    } else {
+      setData(result.data);
     }
     setLoading(false);
   }, [url, navigate]);

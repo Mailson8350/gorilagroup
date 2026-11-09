@@ -123,7 +123,7 @@ export default function AdminTeam() {
         </div>
         <button 
           onClick={handleNew}
-          className="bg-black text-white px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-500 hover:text-black transition-all"
+          className="btn-primary flex items-center space-x-2"
         >
           <Plus size={20} />
           <span>Novo Membro</span>
@@ -143,7 +143,7 @@ export default function AdminTeam() {
                   key={m.id}
                   onClick={() => handleSelect(m)}
                   className={`w-full p-3 rounded-2xl flex items-center space-x-3 transition-all mb-2 ${
-                    selectedMember?.id === m.id ? "bg-black text-white shadow-lg" : "bg-white text-zinc-600 hover:bg-zinc-50"
+                    selectedMember?.id === m.id ? "bg-primary text-secondary shadow-lg" : "bg-white text-zinc-600 hover:bg-zinc-50"
                   }`}
                 >
                   <div className="w-10 h-10 rounded-full bg-zinc-100 overflow-hidden flex-shrink-0">
@@ -245,7 +245,7 @@ export default function AdminTeam() {
                 <div className="flex-1" />
                 <button 
                   type="submit" 
-                  className="bg-black text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest flex items-center space-x-3 hover:bg-emerald-500 hover:text-black transition-all shadow-xl"
+                  className="btn-primary flex items-center space-x-3"
                 >
                   <Save size={20} />
                   <span>{isNew ? "Adicionar" : "Guardar Alterações"}</span>

@@ -110,7 +110,7 @@ export default function AdminProducts() {
             resetForm();
             setShowModal(true);
           }}
-          className="bg-black text-white px-6 py-3 rounded-2xl font-black uppercase tracking-widest flex items-center space-x-2 hover:bg-emerald-500 hover:text-black transition-all"
+          className="btn-primary flex items-center space-x-2"
         >
           <Plus size={20} />
           <span>Novo Produto</span>
@@ -273,13 +273,13 @@ export default function AdminProducts() {
                     setShowModal(false);
                     resetForm();
                   }}
-                  className="px-6 py-3 rounded-xl font-bold text-zinc-500 hover:bg-zinc-100 transition-colors"
+                  className="px-6 py-3 rounded-xl font-bold text-zinc-500 bg-zinc-100 hover:bg-zinc-200 transition-all"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="bg-black text-white px-8 py-3 rounded-xl font-black uppercase tracking-widest hover:bg-emerald-500 hover:text-black transition-all"
+                  className="btn-primary"
                 >
                   Guardar Produto
                 </button>

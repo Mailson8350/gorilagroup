@@ -7,7 +7,7 @@ import MediaImage from "../components/MediaImage";
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, clearCart, totalPrice } = useCart();
-  const { formatPrice } = useSettings();
+  const { formatPrice, t } = useSettings();
   const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -56,10 +56,10 @@ export default function Cart() {
     return (
       <div className="min-h-screen bg-stone-50 flex flex-col items-center justify-center px-4">
         <ShoppingBag size={64} className="text-zinc-300 mb-6" />
-        <h1 className="text-3xl font-black uppercase italic tracking-tighter mb-4">Carrinho vazio</h1>
-        <p className="text-zinc-500 mb-8">Adicione produtos da loja para continuar.</p>
+        <h1 className="text-3xl font-black uppercase italic tracking-tighter mb-4">{t("cart_empty_title")}</h1>
+        <p className="text-zinc-500 mb-8">{t("cart_empty_desc")}</p>
         <Link to="/loja" className="btn-primary">
-          Ir à Loja
+          {t("cart_continue_shopping")}
         </Link>
       </div>
     );
@@ -70,7 +70,7 @@ export default function Cart() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link to="/loja" className="inline-flex items-center gap-2 text-zinc-500 hover:text-black mb-8">
           <ArrowLeft size={20} />
-          <span className="font-bold uppercase tracking-widest text-xs">Continuar a comprar</span>
+          <span className="font-bold uppercase tracking-widest text-xs">{t("cart_continue_shopping")}</span>
         </Link>
 
         <h1 className="text-4xl font-black uppercase italic tracking-tighter mb-12">
@@ -79,7 +79,7 @@ export default function Cart() {
 
         {status === "ok" ? (
           <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-12 text-center">
-            <p className="text-emerald-800 font-bold text-lg">Pedido enviado com sucesso!</p>
+            <p className="text-emerald-800 font-bold text-lg">{t("cart_order_success")}</p>
             <p className="text-emerald-600 mt-2">Entraremos em contacto em breve.</p>
           </div>
         ) : (
@@ -131,7 +131,7 @@ export default function Cart() {
             </div>
 
             <div className="bg-white rounded-2xl p-8 border border-zinc-100 shadow-xl h-fit sticky top-24">
-              <h2 className="text-xl font-black uppercase mb-6">Finalizar pedido</h2>
+              <h2 className="text-xl font-black uppercase mb-6">{t("cart_checkout_title")}</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                   required
@@ -149,7 +149,7 @@ export default function Cart() {
                 />
                 <input
                   required
-                  placeholder="Telefone / WhatsApp"
+                  placeholder={t("cart_phone_placeholder")}
                   value={telefone}
                   onChange={(e) => setTelefone(e.target.value)}
                   className="w-full bg-zinc-50 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none"
@@ -163,7 +163,7 @@ export default function Cart() {
                   disabled={status === "loading"}
                   className="w-full btn-primary disabled:opacity-50"
                 >
-                  {status === "loading" ? "A enviar..." : "Confirmar pedido"}
+                  {status === "loading" ? t("contact_status_loading") : t("cart_confirm_order")}
                 </button>
                 {status === "error" && <p className="text-red-600 text-sm font-medium">{errorMsg}</p>}
                 <p className="text-xs text-zinc-400 text-center">

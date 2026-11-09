@@ -138,7 +138,7 @@ export default function AdminServices() {
         </div>
         <button 
           onClick={handleNew}
-          className="bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-400 transition-all shadow-lg"
+          className="btn-primary flex items-center space-x-2"
         >
           <Plus size={20} />
           <span>Novo Serviço</span>
@@ -154,7 +154,7 @@ export default function AdminServices() {
               onClick={() => handleSelect(s)}
               className={`w-full p-4 rounded-xl text-left font-bold transition-all ${
                 selectedService?.id === s.id 
-                  ? "bg-black text-white shadow-xl scale-[1.02]" 
+                  ? "bg-primary text-secondary shadow-xl scale-[1.02]" 
                   : "bg-white text-zinc-600 hover:bg-zinc-50"
               }`}
             >
@@ -298,7 +298,7 @@ export default function AdminServices() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="bg-black text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest flex items-center space-x-3 hover:bg-emerald-500 hover:text-black transition-all disabled:opacity-50 shadow-xl"
+                className="btn-primary flex items-center space-x-3 disabled:opacity-50"
               >
                 <Save size={20} />
                 <span>{loading ? "A Guardar..." : (isNew ? "Criar Serviço" : "Guardar Alterações")}</span>

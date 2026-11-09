@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Calendar, Mail, CheckCircle2, XCircle, Trash2, Home, Plus, Save, Edit, X } from "lucide-react";
 import ImageField from "../../components/admin/ImageField";
 import { mediaUrl } from "../../lib/media";
-import { adminFetch, adminFetchJson } from "../../lib/adminApi";
+import { adminFetch, adminFetchJson, isAdminFetchError } from "../../lib/adminApi";
 import AdminErrorBanner from "../../components/admin/AdminErrorBanner";
 
 interface Reserva {
@@ -58,7 +58,8 @@ export default function AdminReservations() {
 
       if (!resRes.ok) {
         setReservas([]);
-        setFetchError(resRes.error);
+        if (isAdminFetchError(resRes)) setFetchError(resRes.error);
+        else setFetchError("Erro ao carregar reservas.");
       } else {
         setReservas(
           resRes.data.map((r) => ({
@@ -142,13 +143,13 @@ export default function AdminReservations() {
         <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-zinc-100">
           <button
             onClick={() => setActiveTab('reservas')}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'reservas' ? 'bg-black text-white shadow-lg' : 'text-zinc-500 hover:text-black'}`}
+            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'reservas' ? 'bg-primary text-secondary shadow-lg' : 'text-zinc-500 hover:text-secondary'}`}
           >
             Reservas
           </button>
           <button
             onClick={() => setActiveTab('quartos')}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'quartos' ? 'bg-black text-white shadow-lg' : 'text-zinc-500 hover:text-black'}`}
+            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'quartos' ? 'bg-primary text-secondary shadow-lg' : 'text-zinc-500 hover:text-secondary'}`}
           >
             Quartos
           </button>
@@ -250,9 +251,15 @@ export default function AdminReservations() {
       ) : (
         <div className="space-y-6">
           <div className="flex justify-end">
+<<<<<<< HEAD
              <button
                 onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1, num_quartos: 1 }); setShowQuartoModal(true); }}
                 className="bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-400 transition-all shadow-lg"
+=======
+             <button 
+                onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1 }); setShowQuartoModal(true); }}
+                className="btn-primary flex items-center space-x-2"
+>>>>>>> 9ad5af4da49cb38c6949c3daaa0f2a27d2fb57f9
               >
                 <Plus size={20} />
                 <span>Novo Quarto</span>
@@ -379,7 +386,7 @@ export default function AdminReservations() {
               </div>
               <button 
                 type="submit" 
-                className="w-full bg-black text-white py-5 rounded-2xl font-black uppercase tracking-widest flex items-center justify-center space-x-3 hover:bg-emerald-500 hover:text-black transition-all shadow-xl"
+                className="btn-primary w-full justify-center space-x-3"
               >
                 <Save size={20} />
                 <span>Guardar Quarto</span>

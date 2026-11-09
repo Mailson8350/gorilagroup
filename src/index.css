@@ -20,9 +20,9 @@
     @apply font-display font-bold;
   }
 
-  h1 { @apply text-[48px] leading-tight; }
-  h2 { @apply text-[36px] leading-tight; }
-  h3 { @apply text-[28px] leading-tight; }
+  h1 { font-size: clamp(1.75rem, 4.5vw, 4.5rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 3rem); line-height: 1.1; }
+  h3 { font-size: clamp(1.125rem, 2.5vw, 1.75rem); line-height: 1.15; }
   p { @apply text-[16px] leading-relaxed; }
 }
 
@@ -37,6 +37,14 @@
 
   .card-hover {
     @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
+  }
+
+  .glass-panel {
+    @apply bg-white/95 border border-zinc-200/80 shadow-2xl rounded-3xl backdrop-blur-xl;
+  }
+
+  .label-pill {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em];
   }
 }
 
