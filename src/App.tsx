@@ -81,7 +81,7 @@ export default function App() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
           {adminRoutes.map((item) => {
             const Page = item.component;
-            return <Route key={item.path} path={item.path} element={<AdminShell><Page /></AdminShell>} />;
+            return <Route {...{ key: item.path }} path={item.path} element={<AdminShell><Page /></AdminShell>} />;
           })}
           <Route path="/admin/site" element={<Navigate to="/admin/configuracoes" replace />} />
           <Route path="/admin/equipamentos" element={<Navigate to="/admin/servicos" replace />} />

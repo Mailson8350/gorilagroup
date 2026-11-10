@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Calendar, Mail, CheckCircle2, XCircle, Trash2, Home, Plus, Save, Edit, X } from "lucide-react";
+import { Calendar, Mail, CheckCircle2, XCircle, Trash2, Home, Plus, Save, Edit } from "lucide-react";
 import ImageField from "../../components/admin/ImageField";
 import { mediaUrl } from "../../lib/media";
 import { adminFetch, adminFetchJson, isAdminFetchError } from "../../lib/adminApi";
 import AdminErrorBanner from "../../components/admin/AdminErrorBanner";
+import Modal from "../../components/ui/Modal";
 
 interface Reserva {
   id: number;
@@ -251,15 +252,9 @@ export default function AdminReservations() {
       ) : (
         <div className="space-y-6">
           <div className="flex justify-end">
-<<<<<<< HEAD
-             <button
-                onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1, num_quartos: 1 }); setShowQuartoModal(true); }}
-                className="bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-400 transition-all shadow-lg"
-=======
-             <button 
-                onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1 }); setShowQuartoModal(true); }}
-                className="btn-primary flex items-center space-x-2"
->>>>>>> 9ad5af4da49cb38c6949c3daaa0f2a27d2fb57f9
+            <button
+              onClick={() => { setEditingQuarto({ id: 0, nome: "", descricao: "", preco_noite: 0, imagem: "", disponivel: 1, num_quartos: 1 }); setShowQuartoModal(true); }}
+              className="bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-400 transition-all shadow-lg"
               >
                 <Plus size={20} />
                 <span>Novo Quarto</span>
@@ -311,17 +306,12 @@ export default function AdminReservations() {
         </div>
       )}
 
-      {showQuartoModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-[2.5rem] w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
-            <div className="p-8 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/50">
-              <h2 className="text-xl font-black uppercase italic tracking-tighter">
-                {editingQuarto?.id ? "Editar Quarto" : "Novo Quarto"}
-              </h2>
-              <button onClick={() => setShowQuartoModal(false)} className="p-2 hover:bg-zinc-200 rounded-full transition-all">
-                <X size={20} />
-              </button>
-            </div>
+      <Modal
+        open={showQuartoModal}
+        onClose={() => setShowQuartoModal(false)}
+        title={editingQuarto?.id ? "Editar Quarto" : "Novo Quarto"}
+        maxWidth="max-w-lg"
+      >
             <form onSubmit={handleSaveQuarto} className="p-8 space-y-6">
               <div className="space-y-4">
                 <div>
@@ -392,9 +382,7 @@ export default function AdminReservations() {
                 <span>Guardar Quarto</span>
               </button>
             </form>
-          </div>
-        </div>
-      )}
+      </Modal>
     </div>
   );
 }

@@ -9,12 +9,14 @@ export default function Home() {
   const { services, formatPrice, language, t, siteConfig } = useSettings();
   const siteTitle = siteConfig.site_name || "GORILA";
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+  const [productsLoaded, setProductsLoaded] = useState(false);
 
   useEffect(() => {
     fetch("/api/produtos")
       .then((r) => r.json())
       .then((data) => setFeaturedProducts(Array.isArray(data) ? data.slice(0, 4) : []))
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setProductsLoaded(true));
   }, []);
 
   const getIcon = (id: string) => {
@@ -36,10 +38,10 @@ export default function Home() {
           <img 
             src={mediaUrl(siteConfig.hero_image)} 
             alt="Gorila Hub Hero" 
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30 blur-[2px] scale-105"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/40 to-secondary" />
+          <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 via-secondary/60 to-secondary" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -73,12 +75,21 @@ export default function Home() {
           <div className="w-20 h-1.5 bg-primary mx-auto mt-4 rounded-full" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.slice(0, 5).map((service, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.length === 0 &&
+            [0, 1, 2, 3].map((i) => (
+              <div key={i} className="bg-white p-10 rounded-2xl border border-zinc-100 animate-pulse">
+                <div className="w-16 h-16 rounded-xl bg-zinc-200 mb-8" />
+                <div className="h-6 w-3/4 bg-zinc-200 rounded mb-4" />
+                <div className="h-4 w-full bg-zinc-100 rounded mb-2" />
+                <div className="h-4 w-2/3 bg-zinc-100 rounded" />
+              </div>
+            ))}
+          {services.slice(0, 4).map((service, idx) => (
             <motion.div
               key={service.id}
               whileHover={{ y: -10 }}
-              className="group bg-white p-10 rounded-2xl shadow-xl border border-zinc-100 card-hover overflow-hidden relative"
+              className="group bg-white p-8 rounded-2xl shadow-xl border border-zinc-100 card-hover overflow-hidden relative flex flex-col"
             >
               <div 
                 className="w-16 h-16 text-secondary rounded-xl flex items-center justify-center mb-8 shadow-lg"
@@ -87,8 +98,8 @@ export default function Home() {
                 {getIcon(service.id)}
               </div>
               <h3 className="text-2xl font-display font-bold mb-4">{(service as any)[`nome_${language}`]}</h3>
-              <p className="text-zinc-500 mb-8 line-clamp-2">{(service as any)[`descricao_${language}`]}</p>
-              <Link to={service.path} className="inline-flex items-center space-x-2 text-sm font-bold uppercase tracking-widest text-secondary hover:text-primary transition-colors">
+              <p className="text-zinc-500 mb-8 line-clamp-2 flex-1">{(service as any)[`descricao_${language}`] || "\u00a0"}</p>
+              <Link to={service.path} className="mt-auto inline-flex items-center space-x-2 text-sm font-bold uppercase tracking-widest text-secondary hover:text-primary transition-colors">
                 <span style={{ color: service.cor_paleta }}>{t("explore")}</span>
                 <ArrowRight size={14} style={{ color: service.cor_paleta }} />
               </Link>
@@ -115,6 +126,26 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {productsLoaded && featuredProducts.length === 0 && (
+              <div className="md:col-span-4 bg-white border border-dashed border-zinc-300 rounded-2xl p-12 text-center">
+                <ShoppingBag className="mx-auto text-zinc-300 mb-4" size={40} />
+                <p className="text-zinc-500 font-medium">Em breve — novos produtos em destaque.</p>
+                <Link to="/loja" className="inline-block mt-4 text-primary font-bold text-sm uppercase tracking-widest hover:underline">
+                  Ver loja completa
+                </Link>
+              </div>
+            )}
+            {!productsLoaded &&
+              [0, 1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-xl overflow-hidden border border-zinc-100 animate-pulse">
+                  <div className="aspect-square bg-zinc-200" />
+                  <div className="p-6 space-y-3">
+                    <div className="h-5 w-3/4 bg-zinc-200 rounded" />
+                    <div className="h-5 w-1/3 bg-zinc-100 rounded" />
+                    <div className="h-8 w-full bg-zinc-100 rounded-lg mt-2" />
+                  </div>
+                </div>
+              ))}
             {featuredProducts.map((product) => (
               <div key={product.id} className="bg-white rounded-xl overflow-hidden shadow-sm border border-zinc-100 group card-hover">
                 <div className="aspect-square bg-zinc-100 overflow-hidden">

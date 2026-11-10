@@ -47,12 +47,6 @@ export default function AdminSidebar({
   const isActiveRoute = (path?: string) => path && location.pathname === path;
 
   return (
-<<<<<<< HEAD
-    <aside className="w-72 bg-zinc-950 text-zinc-400 flex flex-col border-r border-zinc-900">
-      <div className="p-8">
-        <Link to="/admin/dashboard" translate="no" className="text-white text-2xl font-black uppercase italic tracking-tighter">
-          Gorila <span className="text-emerald-500">Admin</span>
-=======
     <div
       className={clsx(
         "flex h-full flex-col overflow-hidden bg-white shadow-xl transition-all duration-300 dark:bg-zinc-950",
@@ -77,7 +71,6 @@ export default function AdminSidebar({
               </h2>
             </div>
           )}
->>>>>>> 9ad5af4da49cb38c6949c3daaa0f2a27d2fb57f9
         </Link>
 
         {!mobile && (

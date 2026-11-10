@@ -118,17 +118,25 @@ export function createApp(): express.Application {
   app.post(
     "/api/admin/upload/:folder",
     authenticateAdmin,
-    memoryUpload.single("file"),
+    memoryUpload.array("files", 10),
     asyncHandler(async (req, res) => {
-      if (!req.file) {
+      let files = req.files as Express.Multer.File[] | undefined;
+      if ((!files || files.length === 0) && req.file) {
+        files = [req.file as Express.Multer.File];
+      }
+      if (!files || files.length === 0) {
         res.status(400).json({ error: "Ficheiro em falta" });
         return;
       }
       const folder = UPLOAD_FOLDERS.includes(req.params.folder as UploadFolder)
         ? (req.params.folder as UploadFolder)
         : "site";
-      const url = await uploadFileBuffer(folder, req.file.buffer, req.file.mimetype, req.file.originalname);
-      res.json({ url });
+      const urls: string[] = [];
+      for (const file of files) {
+        urls.push(await uploadFileBuffer(folder, file.buffer, file.mimetype, file.originalname));
+      }
+      // Compatibilidade: um ficheiro devolve { url }; vários devolvem { urls }.
+      res.json(files.length === 1 ? { url: urls[0] } : { urls });
     })
   );
 
@@ -910,15 +918,16 @@ function registerHostelAndRest(app: express.Application) {
     "/api/admin/portfolio",
     authenticateAdmin,
     asyncHandler(async (req, res) => {
-      const { id, titulo, descricao, imagem, data, tipo_evento } = req.body;
+      const { id, titulo, descricao, imagem, data, tipo_evento, imagens } = req.body;
       const supabase = getSupabaseAdmin();
+      const gallery = Array.isArray(imagens) ? imagens.filter((u: unknown) => typeof u === "string" && u) : [];
       const portfolioId = parseExistingId(id);
       if (portfolioId) {
         const { data: prev } = await supabase.from("portfolio").select("imagem").eq("id", portfolioId).maybeSingle();
         const imagemUrl = await img("portfolio", imagem, prev?.imagem);
         const { error } = await supabase
           .from("portfolio")
-          .update({ titulo, descricao, imagem: imagemUrl, data, tipo_evento })
+          .update({ titulo, descricao, imagem: imagemUrl, data, tipo_evento, imagens: gallery })
           .eq("id", portfolioId);
         if (error) throw error;
         res.json({ success: true, id: portfolioId });
@@ -926,7 +935,7 @@ function registerHostelAndRest(app: express.Application) {
         const imagemUrl = await img("portfolio", imagem);
         const { data: row, error } = await supabase
           .from("portfolio")
-          .insert({ titulo, descricao, imagem: imagemUrl, data, tipo_evento })
+          .insert({ titulo, descricao, imagem: imagemUrl, data, tipo_evento, imagens: gallery })
           .select("id")
           .single();
         if (error) throw error;

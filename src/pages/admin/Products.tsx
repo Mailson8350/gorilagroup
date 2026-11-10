@@ -2,6 +2,7 @@ import { useState, useEffect, FormEvent } from "react";
 import { Plus, Trash2, Edit, Search } from "lucide-react";
 import ImageField from "../../components/admin/ImageField";
 import { mediaUrl } from "../../lib/media";
+import Modal from "../../components/ui/Modal";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<any[]>([]);
@@ -193,24 +194,15 @@ export default function AdminProducts() {
         </div>
       </div>
 
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-2xl">
-            <div className="p-8 border-b border-zinc-100 flex items-center justify-between">
-              <h2 className="text-2xl font-black uppercase italic tracking-tight">
-                {editingId ? "Editar Produto" : "Novo Produto"}
-              </h2>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowModal(false);
-                  resetForm();
-                }}
-                className="text-zinc-400 hover:text-black"
-              >
-                <Plus size={24} className="rotate-45" />
-              </button>
-            </div>
+      <Modal
+        open={showModal}
+        onClose={() => {
+          setShowModal(false);
+          resetForm();
+        }}
+        title={editingId ? "Editar Produto" : "Novo Produto"}
+        maxWidth="max-w-2xl"
+      >
             <form onSubmit={handleSubmit} className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -285,9 +277,7 @@ export default function AdminProducts() {
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+      </Modal>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, FormEvent } from "react";
 import { Plus, Save, Trash2, X, Edit } from "lucide-react";
 import ImageField from "./ImageField";
+import Modal from "../ui/Modal";
 import MediaImage from "../MediaImage";
 import AdminErrorBanner from "./AdminErrorBanner";
 import { adminFetchJson, adminFetchList, isAdminFetchError } from "../../lib/adminApi";
@@ -195,15 +196,12 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
         )
       )}
 
-      {showModal && form && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-[2rem] w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="p-6 border-b border-zinc-100 flex justify-between items-center sticky top-0 bg-white">
-              <h4 className="font-black uppercase italic">{form.id ? "Editar opção" : "Nova opção"}</h4>
-              <button type="button" onClick={() => setShowModal(false)} className="p-2 hover:bg-zinc-100 rounded-full">
-                <X size={20} />
-              </button>
-            </div>
+      <Modal
+        open={showModal && !!form}
+        onClose={() => setShowModal(false)}
+        title={form?.id ? "Editar opção" : "Nova opção"}
+        maxWidth="max-w-lg"
+      >
             <form onSubmit={handleSave} className="p-6 space-y-4">
               <div>
                 <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Nome</label>
@@ -268,9 +266,7 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
                 {saving ? "A guardar..." : "Guardar opção"}
               </button>
             </form>
-          </div>
-        </div>
-      )}
+      </Modal>
     </div>
   );
 }

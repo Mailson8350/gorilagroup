@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useState, useEffect, FormEvent, useMemo } from "react";
 import { ArrowRight, MessageSquare, X, Sparkles, Target, Compass, Heart, BookOpen, ShoppingBag } from "lucide-react";
 import MediaImage from "../components/MediaImage";
+import Modal from "../components/ui/Modal";
 import type { SiteSettings } from "../lib/siteConfigDefaults";
 
 /** Página /sobre usa o registo `servicos.id = sobre`; BDs antigas podem não tê-lo — evita spinner infinito. */
@@ -520,17 +521,13 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
         </div>
       </div>
 
-      {showRequestModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-[2rem] w-full max-w-md p-8 relative">
-            <button
-              type="button"
-              onClick={() => setShowRequestModal(false)}
-              className="absolute top-4 right-4 p-2 hover:bg-zinc-100 rounded-full"
-            >
-              <X size={20} />
-            </button>
-            <h3 className="text-xl font-black uppercase italic mb-1">{t("generic_request_modal_title")}</h3>
+      <Modal
+        open={showRequestModal}
+        onClose={() => setShowRequestModal(false)}
+        title={t("generic_request_modal_title")}
+        maxWidth="max-w-md"
+      >
+          <div className="p-8 pt-4">
             {requestOpcao ? (
               <p className="text-sm text-zinc-500 mb-6">
                 Opção: <strong>{requestOpcao.nome}</strong>
@@ -577,8 +574,7 @@ export default function GenericServicePage({ serviceId: propServiceId }: { servi
               </form>
             )}
           </div>
-        </div>
-      )}
+      </Modal>
     </div>
   );
 }

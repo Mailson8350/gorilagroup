@@ -43,13 +43,8 @@ export default function AdminLogin() {
               referrerPolicy="no-referrer"
             />
           </div>
-<<<<<<< HEAD
-          <h1 translate="no" className="text-4xl font-black text-white uppercase italic tracking-tighter">
+          <h1 translate="no" className="text-4xl font-black text-zinc-950 uppercase italic tracking-tighter">
             Gorila <span className="text-emerald-500">Admin</span>
-=======
-          <h1 className="text-4xl font-black text-secondary uppercase italic tracking-tighter">
-            Gorila <span className="text-primary">Admin</span>
->>>>>>> 9ad5af4da49cb38c6949c3daaa0f2a27d2fb57f9
           </h1>
           <p className="text-zinc-500 mt-2 font-medium">Painel de Gestão Empresarial</p>
         </div>

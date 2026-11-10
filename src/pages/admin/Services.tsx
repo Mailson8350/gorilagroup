@@ -13,6 +13,10 @@ export default function AdminServices() {
   const [formData, setFormData] = useState<any>(null);
   const [isNew, setIsNew] = useState(false);
 
+  // Estado de carregamento inicial: o SettingsContext pode ainda não ter
+  // entregue os serviços quando a página monta — sem isto a página fica em branco.
+  const servicesLoading = services.length === 0 && !isNew && !formData;
+
   const emptyService = {
     id: "",
     nome_pt: "",
@@ -127,7 +131,58 @@ export default function AdminServices() {
     }
   };
 
-  if (!formData && !isNew) return <div className="p-8 text-zinc-500 font-bold">Selecione um serviço ou crie um novo...</div>;
+  if (servicesLoading) {
+    return (
+      <div className="space-y-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Serviços</h1>
+            <p className="text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 space-y-2">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="w-full p-4 rounded-xl bg-white border border-zinc-100 animate-pulse">
+                <div className="h-4 w-2/3 bg-zinc-200 rounded" />
+              </div>
+            ))}
+          </div>
+          <div className="lg:col-span-3 bg-white rounded-3xl border border-zinc-100 p-10 animate-pulse">
+            <div className="h-8 w-1/3 bg-zinc-200 rounded mb-6" />
+            <div className="h-4 w-full bg-zinc-100 rounded mb-3" />
+            <div className="h-4 w-3/4 bg-zinc-100 rounded mb-3" />
+            <div className="h-4 w-1/2 bg-zinc-100 rounded" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!formData && !isNew) {
+    return (
+      <div className="space-y-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Serviços</h1>
+            <p className="text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
+          </div>
+          <button 
+            onClick={handleNew}
+            className="btn-primary flex items-center space-x-2"
+          >
+            <Plus size={20} />
+            <span>Novo Serviço</span>
+          </button>
+        </div>
+        <div className="rounded-3xl border border-dashed border-zinc-300 bg-white p-16 text-center">
+          <Palette className="mx-auto text-zinc-300 mb-4" size={44} />
+          <p className="text-zinc-500 font-semibold">Nenhum serviço selecionado.</p>
+          <p className="text-zinc-400 text-sm mt-1">Selecione um serviço na lista ou crie um novo.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

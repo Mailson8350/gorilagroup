@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Briefcase, Plus, Save, Trash2, Camera, Calendar, Tag, FileText } from "lucide-react";
 import ImageField from "../../components/admin/ImageField";
+import GalleryField from "../../components/admin/GalleryField";
 import { mediaUrl } from "../../lib/media";
 
 export default function AdminPortfolio() {
@@ -14,6 +15,7 @@ export default function AdminPortfolio() {
     titulo: "",
     descricao: "",
     imagem: "",
+    imagens: [] as string[],
     data: new Date().toISOString().split("T")[0],
     tipo_evento: ""
   };
@@ -220,6 +222,14 @@ export default function AdminPortfolio() {
                       className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black"
                     />
                   </div>
+
+                  <GalleryField
+                    label="Galeria do evento (múltiplas fotos)"
+                    hint="Fotos adicionais que aparecem no modal do portfólio público."
+                    value={Array.isArray(formData.imagens) ? formData.imagens : []}
+                    onChange={(imagens) => setFormData({ ...formData, imagens })}
+                    folder="portfolio"
+                  />
                 </div>
               </div>
 

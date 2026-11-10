@@ -18,10 +18,8 @@ export default function AdminShell({ children }: AdminShellProps) {
     localStorage.getItem("adminSidebarCollapsed") === "true"
   );
 
-  if (!token) {
-    return <Navigate to="/admin/login" replace />;
-  }
-
+  // Regras dos hooks: todos os hooks devem ser chamados antes de qualquer
+  // return condicional, senão o React lança erro de hooks e desmonta a página.
   const breadcrumbs = useMemo(() => getBreadcrumbTrail(location.pathname), [location.pathname]);
 
   useEffect(() => {
@@ -35,6 +33,10 @@ export default function AdminShell({ children }: AdminShellProps) {
       document.body.style.overflow = previousOverflow;
     };
   }, [sidebarOpen]);
+
+  if (!token) {
+    return <Navigate to="/admin/login" replace />;
+  }
 
   return (
     <div className="min-h-screen bg-stone-50 text-zinc-900 transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-100">

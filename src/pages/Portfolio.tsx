@@ -2,22 +2,27 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSettings } from "../contexts/SettingsContext";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Calendar, Tag } from "lucide-react";
+import { ArrowRight, Calendar, Tag, Images } from "lucide-react";
 import MediaImage from "../components/MediaImage";
+import Modal from "../components/ui/Modal";
 import { usePublicList } from "../hooks/usePublicList";
 import { mediaUrl } from "../lib/media";
 
+interface PortfolioProject {
+  id: number;
+  titulo: string;
+  descricao: string;
+  imagem: string;
+  imagens?: string[] | null;
+  data: string;
+  tipo_evento: string;
+}
+
 export default function Portfolio() {
   const { services, language, siteConfig, t } = useSettings();
-  const { data: projects, loading } = usePublicList<{
-    id: number;
-    titulo: string;
-    descricao: string;
-    imagem: string;
-    data: string;
-    tipo_evento: string;
-  }>("/api/portfolio");
+  const { data: projects, loading } = usePublicList<PortfolioProject>("/api/portfolio");
   const [filter, setFilter] = useState("All");
+  const [detail, setDetail] = useState<PortfolioProject | null>(null);
 
   const portfolioService = services.find((s) => s.id === "portfolio");
   const nome =
@@ -98,7 +103,8 @@ export default function Portfolio() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
-                  className="group"
+                  className="group cursor-pointer"
+                  onClick={() => setDetail(project)}
                 >
                   <div className="relative aspect-video rounded-[2.5rem] overflow-hidden mb-6 shadow-2xl bg-zinc-200">
                     <MediaImage
@@ -113,6 +119,15 @@ export default function Portfolio() {
                         <ArrowRight />
                       </div>
                     </div>
+                    {(() => {
+                      const gallery = Array.isArray(project.imagens) ? project.imagens : [];
+                      const photoCount = 1 + gallery.length;
+                      return photoCount > 1 ? (
+                        <div className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-white/95 text-zinc-900 px-3 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest shadow-lg">
+                          <Images size={14} /> {photoCount} fotos
+                        </div>
+                      ) : null;
+                    })()}
                     {project.tipo_evento && (
                       <div className="absolute top-6 left-6">
                         <span className="bg-primary text-secondary text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
@@ -161,6 +176,70 @@ export default function Portfolio() {
           </motion.span>
         </Link>
       </div>
+
+      <Modal
+        open={detail !== null}
+        onClose={() => setDetail(null)}
+        title={detail?.titulo}
+        maxWidth="max-w-3xl"
+      >
+        {detail && (
+          <div>
+            <div className="aspect-video bg-zinc-100">
+              <img
+                src={mediaUrl(detail.imagem)}
+                alt={detail.titulo}
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-8 space-y-4">
+              <div className="flex flex-wrap items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+                {detail.data && (
+                  <span className="flex items-center gap-1">
+                    <Calendar size={12} /> {detail.data}
+                  </span>
+                )}
+                {detail.tipo_evento && (
+                  <span className="flex items-center gap-1">
+                    <Tag size={12} /> {detail.tipo_evento}
+                  </span>
+                )}
+              </div>
+              {detail.descricao && (
+                <p className="text-zinc-600 leading-relaxed whitespace-pre-line">{detail.descricao}</p>
+              )}
+
+              {Array.isArray(detail.imagens) && detail.imagens.length > 0 && (
+                <div>
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-3 flex items-center gap-1">
+                    <Images size={12} /> Galeria do evento
+                  </h4>
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                    {detail.imagens.map((url, i) => (
+                      <a
+                        key={`${url}-${i}`}
+                        href={mediaUrl(url)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group relative aspect-square rounded-2xl overflow-hidden bg-zinc-100"
+                      >
+                        <img
+                          src={mediaUrl(url)}
+                          alt={`${detail.titulo} — foto ${i + 1}`}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
     </motion.div>
   );
 }
