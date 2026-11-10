@@ -118,8 +118,8 @@ export default function AdminTeam() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão da Equipa</h1>
-          <p className="text-zinc-500 font-medium">Gerencie os rostos e especialistas da Gorila.</p>
+          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão da Equipa</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Gerencie os rostos e especialistas da Gorila.</p>
         </div>
         <button 
           onClick={handleNew}
@@ -132,21 +132,21 @@ export default function AdminTeam() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1 space-y-4">
-          <div className="bg-white rounded-3xl p-4 shadow-sm border border-zinc-100 max-h-[600px] overflow-y-auto">
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl p-4 shadow-sm border border-zinc-100 dark:border-zinc-800 max-h-[600px] overflow-y-auto">
             {loading ? (
-              <div className="p-4 text-center text-zinc-400">A carregar...</div>
+              <div className="p-4 text-center text-zinc-400 dark:text-zinc-500">A carregar...</div>
             ) : members.length === 0 ? (
-              <div className="p-4 text-center text-zinc-400 font-bold italic">Nenhum membro listado.</div>
+              <div className="p-4 text-center text-zinc-400 dark:text-zinc-500 font-bold italic">Nenhum membro listado.</div>
             ) : (
               members.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => handleSelect(m)}
                   className={`w-full p-3 rounded-2xl flex items-center space-x-3 transition-all mb-2 ${
-                    selectedMember?.id === m.id ? "bg-primary text-secondary shadow-lg" : "bg-white text-zinc-600 hover:bg-zinc-50"
+                    selectedMember?.id === m.id ? "bg-primary text-secondary shadow-lg" : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800"
                   }`}
                 >
-                  <div className="w-10 h-10 rounded-full bg-zinc-100 overflow-hidden flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
                     {m.foto ? (
                       <img src={mediaUrl(m.foto)} alt={m.nome} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     ) : (
@@ -165,10 +165,10 @@ export default function AdminTeam() {
 
         <div className="lg:col-span-3">
           {formData ? (
-            <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] shadow-sm border border-zinc-100 p-8 space-y-8">
+            <form onSubmit={handleSubmit} className="bg-white dark:bg-zinc-900 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-zinc-800 p-8 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-1 space-y-4 text-center">
-                  <div className="w-48 h-48 mx-auto rounded-3xl bg-zinc-50 border-2 border-dashed border-zinc-200 overflow-hidden relative flex items-center justify-center">
+                  <div className="w-48 h-48 mx-auto rounded-3xl bg-zinc-50 dark:bg-zinc-800 border-2 border-dashed border-zinc-200 overflow-hidden relative flex items-center justify-center">
                     {formData.foto ? (
                       <img src={mediaUrl(formData.foto)} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     ) : (
@@ -187,51 +187,51 @@ export default function AdminTeam() {
                 <div className="md:col-span-2 space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Nome Completo</label>
-                      <input name="nome" value={formData.nome} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                      <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Nome Completo</label>
+                      <input name="nome" value={formData.nome} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Cargo / Função</label>
-                      <input name="cargo" value={formData.cargo} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                      <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Cargo / Função</label>
+                      <input name="cargo" value={formData.cargo} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Biografia / Descrição</label>
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Biografia / Descrição</label>
                     <textarea 
                       name="bio" 
                       value={formData.bio} 
                       onChange={handleChange} 
                       rows={4}
-                      className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black"
+                      className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black"
                     />
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400">Redes Sociais</h3>
+                    <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Redes Sociais</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="relative">
-                        <Facebook size={16} className="absolute left-3 top-3 text-zinc-400" />
-                        <input name="facebook" value={formData.redes_sociais.facebook} onChange={handleSocialChange} placeholder="Facebook" className="w-full bg-zinc-50 p-3 pl-10 rounded-xl border-none text-sm" />
+                        <Facebook size={16} className="absolute left-3 top-3 text-zinc-400 dark:text-zinc-500" />
+                        <input name="facebook" value={formData.redes_sociais.facebook} onChange={handleSocialChange} placeholder="Facebook" className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 pl-10 rounded-xl border-none text-sm" />
                       </div>
                       <div className="relative">
-                        <Instagram size={16} className="absolute left-3 top-3 text-zinc-400" />
-                        <input name="instagram" value={formData.redes_sociais.instagram} onChange={handleSocialChange} placeholder="Instagram" className="w-full bg-zinc-50 p-3 pl-10 rounded-xl border-none text-sm" />
+                        <Instagram size={16} className="absolute left-3 top-3 text-zinc-400 dark:text-zinc-500" />
+                        <input name="instagram" value={formData.redes_sociais.instagram} onChange={handleSocialChange} placeholder="Instagram" className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 pl-10 rounded-xl border-none text-sm" />
                       </div>
                       <div className="relative">
-                        <Twitter size={16} className="absolute left-3 top-3 text-zinc-400" />
-                        <input name="twitter" value={formData.redes_sociais.twitter} onChange={handleSocialChange} placeholder="Twitter" className="w-full bg-zinc-50 p-3 pl-10 rounded-xl border-none text-sm" />
+                        <Twitter size={16} className="absolute left-3 top-3 text-zinc-400 dark:text-zinc-500" />
+                        <input name="twitter" value={formData.redes_sociais.twitter} onChange={handleSocialChange} placeholder="Twitter" className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 pl-10 rounded-xl border-none text-sm" />
                       </div>
                       <div className="relative">
-                        <Linkedin size={16} className="absolute left-3 top-3 text-zinc-400" />
-                        <input name="linkedin" value={formData.redes_sociais.linkedin} onChange={handleSocialChange} placeholder="LinkedIn" className="w-full bg-zinc-50 p-3 pl-10 rounded-xl border-none text-sm" />
+                        <Linkedin size={16} className="absolute left-3 top-3 text-zinc-400 dark:text-zinc-500" />
+                        <input name="linkedin" value={formData.redes_sociais.linkedin} onChange={handleSocialChange} placeholder="LinkedIn" className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 pl-10 rounded-xl border-none text-sm" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-between items-center pt-8 border-t border-zinc-100">
+              <div className="flex justify-between items-center pt-8 border-t border-zinc-100 dark:border-zinc-800">
                 {!isNew && selectedMember && (
                   <button 
                     type="button"
@@ -253,7 +253,7 @@ export default function AdminTeam() {
               </div>
             </form>
           ) : (
-            <div className="h-full flex items-center justify-center bg-zinc-50 rounded-[2.5rem] border-2 border-dashed border-zinc-200 p-20 text-center">
+            <div className="h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-800 rounded-[2.5rem] border-2 border-dashed border-zinc-200 p-20 text-center">
               <div>
                 <Users size={64} className="mx-auto text-zinc-200 mb-6" />
                 <h2 className="text-2xl font-black italic uppercase tracking-tighter text-zinc-300">Selecione ou Crie um Especialista</h2>

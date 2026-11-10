@@ -37,15 +37,15 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{label}</label>
+      <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">{label}</label>
       {children}
-      {hint && <p className="text-xs text-zinc-400">{hint}</p>}
+      {hint && <p className="text-xs text-zinc-400 dark:text-zinc-500">{hint}</p>}
     </div>
   );
 }
 
 const inputClass =
-  "w-full bg-zinc-50 border border-zinc-100 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500";
+  "w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500";
 
 export default function AdminSettings() {
   const { refreshSiteConfig } = useSettings();
@@ -127,15 +127,15 @@ export default function AdminSettings() {
   }
 
   if (loading) {
-    return <p className="text-zinc-400 p-8">A carregar configurações...</p>;
+    return <p className="text-zinc-400 dark:text-zinc-500 p-8">A carregar configurações...</p>;
   }
 
   return (
     <div className="space-y-6 max-w-5xl">
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Configurações</h1>
-          <p className="text-zinc-500 font-medium">Central de gestão do website — reflete no portal público.</p>
+          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Configurações</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Central de gestão do website — reflete no portal público.</p>
         </div>
         {status === "ok" && (
           <span className="flex items-center gap-2 text-emerald-600 text-sm font-bold">
@@ -149,14 +149,14 @@ export default function AdminSettings() {
         )}
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-zinc-100 pb-4">
+      <div className="flex flex-wrap gap-2 border-b border-zinc-100 dark:border-zinc-800 pb-4">
         {TABS.map((t) => (
           <button
             key={t.id}
             type="button"
             onClick={() => setTab(t.id)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
-              tab === t.id ? "bg-primary text-secondary" : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+              tab === t.id ? "bg-primary text-secondary" : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200"
             }`}
           >
             {t.icon}
@@ -165,7 +165,7 @@ export default function AdminSettings() {
         ))}
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-[2rem] p-8 border border-zinc-100 shadow-sm space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-zinc-900 rounded-[2rem] p-8 border border-zinc-100 dark:border-zinc-800 shadow-sm space-y-6">
         {tab === "geral" && (
           <div className="space-y-5">
             <Field label="Nome do site">
@@ -215,7 +215,7 @@ export default function AdminSettings() {
                   type="button"
                   onClick={() => setAboutLang(l)}
                   className={`px-4 py-2 rounded-lg text-xs font-black uppercase ${
-                    aboutLang === l ? "bg-emerald-500 text-black" : "bg-zinc-100"
+                    aboutLang === l ? "bg-emerald-500 text-black" : "bg-zinc-100 dark:bg-zinc-800"
                   }`}
                 >
                   {l}
@@ -354,11 +354,11 @@ export default function AdminSettings() {
               value={form.hero_image}
               onChange={(v) => set("hero_image", v)}
               folder="site"
-              previewClassName="w-full h-48 rounded-xl object-cover bg-zinc-100"
+              previewClassName="w-full h-48 rounded-xl object-cover bg-zinc-100 dark:bg-zinc-800"
             />
             <ImageField label="Banner página Equipa" value={form.equipa_banner_url} onChange={(v) => set("equipa_banner_url", v)} folder="site" />
             <ImageField label="Banner página Portfólio" value={form.portfolio_banner_url} onChange={(v) => set("portfolio_banner_url", v)} folder="site" />
-            <div className="border-t border-zinc-100 pt-6 space-y-3">
+            <div className="border-t border-zinc-100 dark:border-zinc-800 pt-6 space-y-3">
               <p className="text-sm font-bold">Slider (URLs de imagens)</p>
               <div className="flex gap-2">
                 <input
@@ -373,7 +373,7 @@ export default function AdminSettings() {
               </div>
               <ul className="space-y-2">
                 {sliders.map((s, i) => (
-                  <li key={i} className="flex items-center justify-between bg-zinc-50 rounded-lg px-3 py-2 text-xs">
+                  <li key={i} className="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800 rounded-lg px-3 py-2 text-xs">
                     <span className="truncate flex-1">{s.url}</span>
                     <button type="button" onClick={() => removeSlider(i)} className="text-red-500 font-bold ml-2">
                       Remover
@@ -406,7 +406,7 @@ export default function AdminSettings() {
           </div>
         )}
 
-        <div className="pt-4 border-t border-zinc-100 flex justify-end">
+        <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex justify-end">
           <button
             type="submit"
             disabled={saving}

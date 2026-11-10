@@ -43,37 +43,37 @@ export default function AdminLogin() {
               referrerPolicy="no-referrer"
             />
           </div>
-          <h1 translate="no" className="text-4xl font-black text-zinc-950 uppercase italic tracking-tighter">
+          <h1 translate="no" className="text-4xl font-black text-zinc-950 dark:text-white uppercase italic tracking-tighter">
             Gorila <span className="text-emerald-500">Admin</span>
           </h1>
-          <p className="text-zinc-500 mt-2 font-medium">Painel de Gestão Empresarial</p>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 mt-2 font-medium">Painel de Gestão Empresarial</p>
         </div>
 
-        <div className="bg-white p-8 rounded-[2.5rem] border border-zinc-100 shadow-2xl">
+        <div className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 shadow-2xl">
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 ml-1">Utilizador</label>
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 ml-1">Utilizador</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" size={18} />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 dark:text-zinc-300" size={18} />
                 <input 
                   type="text" 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl pl-12 pr-4 py-4 text-secondary focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 rounded-2xl pl-12 pr-4 py-4 text-secondary focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
                   placeholder="admin"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 ml-1">Palavra-passe</label>
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 ml-1">Palavra-passe</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 dark:text-zinc-300" size={18} />
                 <input 
                   type="password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl pl-12 pr-4 py-4 text-secondary focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 rounded-2xl pl-12 pr-4 py-4 text-secondary focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
                   placeholder="••••••••"
                 />
               </div>
@@ -95,7 +95,7 @@ export default function AdminLogin() {
           </form>
         </div>
 
-        <p className="text-center mt-8 text-zinc-600 text-[10px] uppercase tracking-widest font-bold">
+        <p className="text-center mt-8 text-zinc-600 dark:text-zinc-300 text-[10px] uppercase tracking-widest font-bold">
           &copy; {new Date().getFullYear()} Gorila Group. Acesso Restrito.
         </p>
       </div>

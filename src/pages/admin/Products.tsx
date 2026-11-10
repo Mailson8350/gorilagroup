@@ -101,10 +101,10 @@ export default function AdminProducts() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Produtos</h1>
-          <p className="text-zinc-500 font-medium">Adicione, edite ou remova produtos da loja.</p>
+      <div className="flex flex-wrap gap-4 items-center justify-between">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão de Produtos</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Adicione, edite ou remova produtos da loja.</p>
         </div>
         <button
           onClick={() => {
@@ -118,14 +118,14 @@ export default function AdminProducts() {
         </button>
       </div>
 
-      <div className="bg-white rounded-[2.5rem] shadow-sm border border-zinc-100 overflow-hidden">
-        <div className="p-6 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/50">
+      <div className="bg-white dark:bg-zinc-900 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-zinc-800 overflow-hidden">
+        <div className="p-6 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-800/50">
           <div className="relative max-w-md w-full">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500" size={18} />
             <input
               type="text"
               placeholder="Pesquisar por nome ou categoria..."
-              className="w-full pl-12 pr-4 py-3 bg-white border border-zinc-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
             />
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function AdminProducts() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 border-b border-zinc-100">
+              <tr className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 border-b border-zinc-100 dark:border-zinc-800">
                 <th className="px-8 py-6">Produto</th>
                 <th className="px-8 py-6">Categoria</th>
                 <th className="px-8 py-6">Preço</th>
@@ -142,10 +142,10 @@ export default function AdminProducts() {
             </thead>
             <tbody className="divide-y divide-zinc-50">
               {products.map((product) => (
-                <tr key={product.id} className="hover:bg-zinc-50/50 transition-colors group">
+                <tr key={product.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors group">
                   <td className="px-8 py-4">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 rounded-xl bg-zinc-100 overflow-hidden flex-shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
                         <img
                           src={mediaUrl(product.imagem)}
                           alt=""
@@ -154,13 +154,13 @@ export default function AdminProducts() {
                         />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-zinc-900">{product.nome}</p>
-                        <p className="text-xs text-zinc-400 line-clamp-1 max-w-[200px]">{product.descricao}</p>
+                        <p className="text-sm font-bold text-zinc-900 dark:text-white">{product.nome}</p>
+                        <p className="text-xs text-zinc-400 dark:text-zinc-500 line-clamp-1 max-w-[200px]">{product.descricao}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-8 py-4">
-                    <span className="text-[10px] font-black uppercase tracking-widest bg-zinc-100 px-3 py-1 rounded-full text-zinc-500">
+                    <span className="text-[10px] font-black uppercase tracking-widest bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">
                       {product.categoria_nome}
                     </span>
                   </td>
@@ -174,14 +174,14 @@ export default function AdminProducts() {
                       <button
                         type="button"
                         onClick={() => openEdit(product)}
-                        className="p-2 text-zinc-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
                       >
                         <Edit size={18} />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleDelete(product.id)}
-                        className="p-2 text-zinc-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <Trash2 size={18} />
                       </button>
@@ -206,22 +206,22 @@ export default function AdminProducts() {
             <form onSubmit={handleSubmit} className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-1">Nome</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 ml-1">Nome</label>
                   <input
                     required
                     type="text"
                     value={formData.nome}
                     onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                    className="w-full bg-zinc-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-1">Categoria</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 ml-1">Categoria</label>
                   <select
                     required
                     value={formData.categoria_id}
                     onChange={(e) => setFormData({ ...formData, categoria_id: e.target.value })}
-                    className="w-full bg-zinc-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="">Selecionar...</option>
                     {categories.map((cat) => (
@@ -233,23 +233,23 @@ export default function AdminProducts() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-1">Descrição</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 ml-1">Descrição</label>
                 <textarea
                   required
                   rows={3}
                   value={formData.descricao}
                   onChange={(e) => setFormData({ ...formData, descricao: e.target.value })}
-                  className="w-full bg-zinc-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 resize-none"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500 resize-none"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-1">Preço (XOF)</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 ml-1">Preço (XOF)</label>
                 <input
                   required
                   type="number"
                   value={formData.preco}
                   onChange={(e) => setFormData({ ...formData, preco: e.target.value })}
-                  className="w-full bg-zinc-50 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
               <ImageField
@@ -265,7 +265,7 @@ export default function AdminProducts() {
                     setShowModal(false);
                     resetForm();
                   }}
-                  className="px-6 py-3 rounded-xl font-bold text-zinc-500 bg-zinc-100 hover:bg-zinc-200 transition-all"
+                  className="px-6 py-3 rounded-xl font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 transition-all"
                 >
                   Cancelar
                 </button>

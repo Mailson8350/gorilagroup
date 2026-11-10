@@ -49,18 +49,18 @@ export default function AdminCategories() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Categorias</h1>
-        <p className="text-zinc-500 font-medium">Organize os produtos da loja por categoria.</p>
+        <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Categorias</h1>
+        <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Organize os produtos da loja por categoria.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] p-6 border border-zinc-100 shadow-sm flex flex-wrap gap-4 items-end">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-6 border border-zinc-100 dark:border-zinc-800 shadow-sm flex flex-wrap gap-4 items-end">
         <div className="flex-1 min-w-[200px]">
-          <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 ml-1">Nome</label>
+          <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 ml-1">Nome</label>
           <input
             required
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            className="w-full bg-zinc-50 rounded-xl px-4 py-3 mt-1 focus:ring-2 focus:ring-emerald-500 border-none"
+            className="w-full bg-zinc-50 dark:bg-zinc-800 rounded-xl px-4 py-3 mt-1 focus:ring-2 focus:ring-emerald-500 border-none"
           />
         </div>
         <button type="submit" className="btn-primary inline-flex items-center gap-2">
@@ -74,17 +74,17 @@ export default function AdminCategories() {
               setEditingId(null);
               setNome("");
             }}
-            className="px-6 py-3 rounded-xl font-bold text-zinc-500 bg-zinc-100 hover:bg-zinc-200 transition-all"
+            className="px-6 py-3 rounded-xl font-bold text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 transition-all"
           >
             Cancelar
           </button>
         )}
       </form>
 
-      <div className="bg-white rounded-2xl border border-zinc-100 overflow-hidden">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 overflow-hidden">
         <table className="w-full text-left">
           <thead>
-            <tr className="text-[10px] font-black uppercase tracking-widest text-zinc-400 border-b border-zinc-100">
+            <tr className="text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 border-b border-zinc-100 dark:border-zinc-800">
               <th className="px-6 py-4">ID</th>
               <th className="px-6 py-4">Nome</th>
               <th className="px-6 py-4 text-right">Ações</th>
@@ -102,14 +102,14 @@ export default function AdminCategories() {
                       setEditingId(cat.id);
                       setNome(cat.nome);
                     }}
-                    className="p-2 text-zinc-400 hover:text-blue-500 rounded-lg"
+                    className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-blue-500 rounded-lg"
                   >
                     <Edit size={18} />
                   </button>
                   <button
                     type="button"
                     onClick={() => handleDelete(cat.id)}
-                    className="p-2 text-zinc-400 hover:text-red-500 rounded-lg"
+                    className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-red-500 rounded-lg"
                   >
                     <Trash2 size={18} />
                   </button>

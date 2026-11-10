@@ -135,22 +135,22 @@ export default function AdminReservations() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão Hostel</h1>
-          <p className="text-zinc-500 font-medium">
+        <div className="min-w-0">
+          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão Hostel</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">
             Controle as reservas e os quartos. Reservas registadas: <strong>{reservas.length}</strong>
           </p>
         </div>
-        <div className="flex bg-white p-1 rounded-2xl shadow-sm border border-zinc-100">
+        <div className="flex bg-white dark:bg-zinc-900 p-1 rounded-2xl shadow-sm border border-zinc-100 dark:border-zinc-800">
           <button
             onClick={() => setActiveTab('reservas')}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'reservas' ? 'bg-primary text-secondary shadow-lg' : 'text-zinc-500 hover:text-secondary'}`}
+            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'reservas' ? 'bg-primary text-secondary shadow-lg' : 'text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 hover:text-secondary'}`}
           >
             Reservas
           </button>
           <button
             onClick={() => setActiveTab('quartos')}
-            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'quartos' ? 'bg-primary text-secondary shadow-lg' : 'text-zinc-500 hover:text-secondary'}`}
+            className={`px-6 py-3 rounded-xl font-bold transition-all ${activeTab === 'quartos' ? 'bg-primary text-secondary shadow-lg' : 'text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 hover:text-secondary'}`}
           >
             Quartos
           </button>
@@ -160,54 +160,54 @@ export default function AdminReservations() {
       {fetchError && <AdminErrorBanner message={fetchError} onRetry={fetchData} />}
 
       {activeTab === 'reservas' ? (
-        <div className="bg-white rounded-[2rem] shadow-sm border border-zinc-100 overflow-hidden">
+        <div className="bg-white dark:bg-zinc-900 rounded-[2rem] shadow-sm border border-zinc-100 dark:border-zinc-800 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="bg-zinc-50/50 border-b border-zinc-100">
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Cliente</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Alojamento</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Datas</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Pessoas / Taxa</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 text-right">Ações</th>
+                <tr className="bg-zinc-50/50 dark:bg-zinc-800/50 border-b border-zinc-100 dark:border-zinc-800">
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Cliente</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Alojamento</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Datas</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Pessoas / Taxa</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 text-right">Ações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-50">
                 {reservas.length === 0 && !loading && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-zinc-400 font-bold italic">
+                    <td colSpan={6} className="px-6 py-12 text-center text-zinc-400 dark:text-zinc-500 font-bold italic">
                       Nenhuma reserva registada.
                     </td>
                   </tr>
                 )}
                 {reservas.map((res) => (
-                  <tr key={res.id} className="hover:bg-zinc-50/50 transition-colors">
+                  <tr key={res.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-zinc-900">{res.nome_cliente}</div>
-                      <div className="text-xs text-zinc-500 flex items-center space-x-1">
+                      <div className="font-bold text-zinc-900 dark:text-white">{res.nome_cliente}</div>
+                      <div className="text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 flex items-center space-x-1">
                         <Mail size={12} />
                         <span>{res.email_cliente}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-2">
-                        <Home size={14} className="text-zinc-400" />
+                        <Home size={14} className="text-zinc-400 dark:text-zinc-500" />
                         <span className="font-bold">{res.quarto_nome}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm font-mono bg-zinc-100 px-2 py-1 rounded inline-block">
+                      <div className="text-sm font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded inline-block">
                         {res.data_inicio} → {res.data_fim}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm">
                       <div className="font-bold">{res.num_pessoas ?? 1} pessoa(s)</div>
-                      <div className="text-zinc-500 text-xs mt-1">
+                      <div className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 text-xs mt-1">
                         Turismo: {(res.taxa_turismo ?? 0).toLocaleString()} XOF
                       </div>
                       {res.valor_alojamento != null && (
-                        <div className="text-zinc-500 text-xs">Aloj.: {res.valor_alojamento.toLocaleString()} XOF</div>
+                        <div className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 text-xs">Aloj.: {res.valor_alojamento.toLocaleString()} XOF</div>
                       )}
                     </td>
                     <td className="px-6 py-4">
@@ -262,8 +262,8 @@ export default function AdminReservations() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quartos.map((q) => (
-              <div key={q.id} className="bg-white rounded-[2rem] border border-zinc-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                <div className="aspect-video overflow-hidden bg-zinc-100 relative">
+              <div key={q.id} className="bg-white dark:bg-zinc-900 rounded-[2rem] border border-zinc-100 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+                <div className="aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800 relative">
                   <img src={mediaUrl(q.imagem)} alt={q.nome} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" referrerPolicy="no-referrer" />
                   <div className="absolute top-4 right-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-md">
                     <span
@@ -281,13 +281,13 @@ export default function AdminReservations() {
                     <div className="font-mono font-bold text-emerald-600">{q.preco_noite.toLocaleString()} F/noite</div>
                   </div>
                   {typeof q.num_quartos === "number" && q.num_quartos > 1 && (
-                    <p className="text-xs text-zinc-400">{q.num_quartos} unidades deste quarto</p>
+                    <p className="text-xs text-zinc-400 dark:text-zinc-500">{q.num_quartos} unidades deste quarto</p>
                   )}
-                  <p className="text-zinc-500 text-sm line-clamp-2">{q.descricao}</p>
+                  <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 text-sm line-clamp-2">{q.descricao}</p>
                   <div className="flex items-center space-x-2 pt-2">
                     <button
                       onClick={() => { setEditingQuarto(q); setShowQuartoModal(true); }}
-                      className="flex-1 bg-zinc-100 text-black py-2 rounded-xl font-bold flex items-center justify-center space-x-2 hover:bg-zinc-200 transition-all"
+                      className="flex-1 bg-zinc-100 dark:bg-zinc-800 text-black py-2 rounded-xl font-bold flex items-center justify-center space-x-2 hover:bg-zinc-200 transition-all"
                     >
                       <Edit size={16} />
                       <span>Editar</span>
@@ -315,45 +315,45 @@ export default function AdminReservations() {
             <form onSubmit={handleSaveQuarto} className="p-8 space-y-6">
               <div className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Nome do Quarto</label>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Nome do Quarto</label>
                   <input
                     required
                     value={editingQuarto?.nome}
                     onChange={(e) => setEditingQuarto({...editingQuarto!, nome: e.target.value})}
-                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium"
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 dark:text-white font-medium"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Número de Quartos Disponíveis</label>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Número de Quartos Disponíveis</label>
                   <input
                     type="number"
                     min={1}
                     required
                     value={editingQuarto?.num_quartos ?? 1}
                     onChange={(e) => setEditingQuarto({...editingQuarto!, num_quartos: Math.max(1, Number(e.target.value) || 1)})}
-                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium font-mono"
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 dark:text-white font-medium font-mono"
                   />
-                  <p className="text-[10px] text-zinc-400 ml-1 mt-1">
+                  <p className="text-[10px] text-zinc-400 dark:text-zinc-500 ml-1 mt-1">
                     Total de unidades deste quarto. Quando todas forem reservadas, o quarto fica esgotado até terminar uma das reservas.
                   </p>
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Preço por Noite</label>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Preço por Noite</label>
                   <input 
                     type="number" 
                     required 
                     value={editingQuarto?.preco_noite} 
                     onChange={(e) => setEditingQuarto({...editingQuarto!, preco_noite: Number(e.target.value)})}
-                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium font-mono" 
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 dark:text-white font-medium font-mono" 
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Descrição</label>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Descrição</label>
                   <textarea 
                     rows={3}
                     value={editingQuarto?.descricao} 
                     onChange={(e) => setEditingQuarto({...editingQuarto!, descricao: e.target.value})}
-                    className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 font-medium" 
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black outline-none text-zinc-900 dark:text-white font-medium" 
                   />
                 </div>
                 {editingQuarto && (
@@ -371,7 +371,7 @@ export default function AdminReservations() {
                     onChange={(e) => setEditingQuarto({...editingQuarto!, disponivel: e.target.checked ? 1 : 0})}
                     className="w-5 h-5 rounded accent-emerald-500"
                   />
-                  <label className="text-sm font-bold uppercase text-zinc-600">Disponível para Reserva</label>
+                  <label className="text-sm font-bold uppercase text-zinc-600 dark:text-zinc-300">Disponível para Reserva</label>
                 </div>
               </div>
               <button 

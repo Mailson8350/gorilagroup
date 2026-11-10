@@ -57,7 +57,7 @@ export default function Team() {
           <motion.h1
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="text-7xl md:text-9xl font-black uppercase italic tracking-tighter text-white mb-6"
+            className="text-5xl sm:text-7xl md:text-9xl font-black uppercase italic tracking-tighter text-white mb-6 break-words max-w-full"
           >
             {nome}
           </motion.h1>

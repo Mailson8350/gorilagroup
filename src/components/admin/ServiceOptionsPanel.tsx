@@ -112,16 +112,16 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-[2rem] border border-zinc-100 p-8 space-y-6 shadow-sm">
+    <div className="bg-white dark:bg-zinc-900 rounded-[2rem] border border-zinc-100 dark:border-zinc-800 p-8 space-y-6 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h3 className="text-xl font-black uppercase italic tracking-tighter text-zinc-900">
+          <h3 className="text-xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">
             Opções para o público
           </h3>
-          <p className="text-zinc-500 text-sm mt-1">
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 text-sm mt-1">
             Pacotes, equipamentos ou serviços que o visitante vê em <strong>{servicoNome}</strong> e pode solicitar.
           </p>
-          <p className="text-zinc-400 text-xs mt-2">
+          <p className="text-zinc-400 dark:text-zinc-500 text-xs mt-2">
             Guarde cada opção com o botão abaixo. Alterar cores ou textos do serviço não apaga estas opções.
           </p>
         </div>
@@ -141,9 +141,9 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
       {loadError && <AdminErrorBanner message={loadError} onRetry={fetchOpcoes} />}
 
       {loading ? (
-        <p className="text-zinc-400 font-bold">A carregar opções...</p>
+        <p className="text-zinc-400 dark:text-zinc-500 font-bold">A carregar opções...</p>
       ) : !loadError && opcoes.length === 0 ? (
-        <p className="text-zinc-400 font-bold italic py-8 text-center border-2 border-dashed border-zinc-200 rounded-xl">
+        <p className="text-zinc-400 dark:text-zinc-500 font-bold italic py-8 text-center border-2 border-dashed border-zinc-200 rounded-xl">
           Nenhuma opção. Adicione a primeira para aparecer no site público.
         </p>
       ) : (
@@ -152,7 +152,7 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
             {opcoes.map((o) => (
               <div
                 key={o.id}
-                className="flex gap-4 p-4 rounded-2xl border border-zinc-100 bg-zinc-50/50 hover:border-zinc-200 transition-colors"
+                className="flex gap-4 p-4 rounded-2xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/50 hover:border-zinc-200 transition-colors"
               >
                 <div className="w-20 h-20 rounded-xl overflow-hidden bg-zinc-200 shrink-0">
                   <MediaImage src={o.imagem} alt={o.nome} className="w-full h-full object-cover" />
@@ -168,7 +168,7 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
                       {o.disponivel ? "Ativo" : "Oculto"}
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-500 line-clamp-2 mt-1">{o.descricao}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 line-clamp-2 mt-1">{o.descricao}</p>
                   <p className="font-mono font-bold text-sm mt-2">{Number(o.preco).toLocaleString()} FCFA</p>
                   <div className="flex gap-2 mt-3">
                     <button
@@ -177,7 +177,7 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
                         setForm({ ...o, disponivel: o.disponivel ? 1 : 0 });
                         setShowModal(true);
                       }}
-                      className="text-xs font-bold uppercase flex items-center gap-1 text-zinc-600 hover:text-black"
+                      className="text-xs font-bold uppercase flex items-center gap-1 text-zinc-600 dark:text-zinc-300 hover:text-black"
                     >
                       <Edit size={14} /> Editar
                     </button>
@@ -204,41 +204,41 @@ export default function ServiceOptionsPanel({ servicoId, servicoNome }: Props) {
       >
             <form onSubmit={handleSave} className="p-6 space-y-4">
               <div>
-                <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Nome</label>
+                <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Nome</label>
                 <input
                   required
                   value={form.nome}
                   onChange={(e) => setForm({ ...form, nome: e.target.value })}
-                  className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black"
                 />
               </div>
               <div>
-                <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Descrição</label>
+                <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Descrição</label>
                 <textarea
                   rows={3}
                   value={form.descricao}
                   onChange={(e) => setForm({ ...form, descricao: e.target.value })}
-                  className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black resize-none"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Preço (FCFA)</label>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Preço (FCFA)</label>
                   <input
                     type="number"
                     min={0}
                     value={form.preco}
                     onChange={(e) => setForm({ ...form, preco: Number(e.target.value) })}
-                    className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black font-mono"
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black font-mono"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Ordem</label>
+                  <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Ordem</label>
                   <input
                     type="number"
                     value={form.ordem}
                     onChange={(e) => setForm({ ...form, ordem: Number(e.target.value) })}
-                    className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black"
+                    className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black"
                   />
                 </div>
               </div>

@@ -122,12 +122,12 @@ export default function AdminDashboard() {
   if (loading) return <div className="text-secondary font-bold p-8">Carregando...</div>;
 
   const statusClass = (status?: string) => {
-    if (!status) return "bg-zinc-100 text-zinc-600";
+    if (!status) return "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300";
     const lower = status.toLowerCase();
     if (lower.includes("pend")) return "bg-amber-100 text-amber-700";
     if (lower.includes("confi") || lower.includes("aceit")) return "bg-emerald-100 text-emerald-700";
     if (lower.includes("canc") || lower.includes("rej")) return "bg-rose-100 text-rose-700";
-    return "bg-zinc-100 text-zinc-600";
+    return "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300";
   };
 
   const cards = [
@@ -145,7 +145,7 @@ export default function AdminDashboard() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-4xl font-display font-bold uppercase tracking-tight text-secondary">Dashboard</h1>
-          <p className="text-zinc-500 mt-2 max-w-2xl">
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 mt-2 max-w-2xl">
             Visão geral moderna e dinâmica das reservas, mensagens, pedidos e solicitações do seu negócio.
           </p>
         </div>
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div>
-              <p className="text-zinc-400 text-[11px] font-semibold uppercase tracking-[0.35em] mb-2">{card.name}</p>
+              <p className="text-zinc-400 dark:text-zinc-500 text-[11px] font-semibold uppercase tracking-[0.35em] mb-2">{card.name}</p>
               <h3 className="text-4xl font-black text-secondary">{card.value}</h3>
             </div>
           </motion.div>
@@ -180,10 +180,10 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white/95 border border-zinc-200/80 shadow-2xl rounded-3xl p-8">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 border-b border-zinc-100 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 border-b border-zinc-100 dark:border-zinc-800 pb-6">
             <div>
               <h3 className="text-2xl font-display font-bold uppercase tracking-tight text-secondary">Atividade Recente</h3>
-              <p className="text-sm text-zinc-500 mt-1">Os últimos eventos e contactos do painel de administração.</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 mt-1">Os últimos eventos e contactos do painel de administração.</p>
             </div>
             <button className="btn-primary rounded-full px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em]">
               Ver tudo
@@ -192,14 +192,14 @@ export default function AdminDashboard() {
 
           <div className="space-y-4">
             {activity.length === 0 ? (
-              <div className="rounded-3xl border border-dashed border-zinc-200 bg-zinc-50 p-10 text-center text-zinc-500 font-semibold">
+              <div className="rounded-3xl border border-dashed border-zinc-200 bg-zinc-50 dark:bg-zinc-800 p-10 text-center text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-semibold">
                 Nenhuma atividade recente disponível.
               </div>
             ) : (
               activity.map((item) => (
                 <div
                   key={item.id}
-                  className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-3xl border border-zinc-200/70 bg-zinc-50 p-5 transition hover:border-primary/30 hover:bg-white"
+                  className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-3xl border border-zinc-200/70 bg-zinc-50 dark:bg-zinc-800 p-5 transition hover:border-primary/30 hover:bg-white dark:bg-zinc-900"
                 >
                   <div className="flex items-start gap-4">
                     <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary shadow-sm">
@@ -207,13 +207,13 @@ export default function AdminDashboard() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-secondary">{item.title}</p>
-                      <p className="mt-1 text-sm text-zinc-500">{item.subtitle}</p>
-                      <p className="mt-2 text-[11px] uppercase tracking-[0.3em] text-zinc-500">{item.meta}</p>
+                      <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">{item.subtitle}</p>
+                      <p className="mt-2 text-[11px] uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">{item.meta}</p>
                     </div>
                   </div>
 
                   <div className="flex flex-col items-start sm:items-end gap-2">
-                    <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500">{item.time}</p>
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">{item.time}</p>
                     {item.status ? (
                       <span className={`rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] ${statusClass(item.status)}`}>
                         {item.status}

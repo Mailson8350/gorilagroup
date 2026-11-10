@@ -134,25 +134,25 @@ export default function AdminServices() {
   if (servicesLoading) {
     return (
       <div className="space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Serviços</h1>
-            <p className="text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
+        <div className="flex flex-wrap gap-4 items-center justify-between">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão de Serviços</h1>
+            <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1 space-y-2">
             {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="w-full p-4 rounded-xl bg-white border border-zinc-100 animate-pulse">
+              <div key={i} className="w-full p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 animate-pulse">
                 <div className="h-4 w-2/3 bg-zinc-200 rounded" />
               </div>
             ))}
           </div>
-          <div className="lg:col-span-3 bg-white rounded-3xl border border-zinc-100 p-10 animate-pulse">
+          <div className="lg:col-span-3 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-100 dark:border-zinc-800 p-10 animate-pulse">
             <div className="h-8 w-1/3 bg-zinc-200 rounded mb-6" />
-            <div className="h-4 w-full bg-zinc-100 rounded mb-3" />
-            <div className="h-4 w-3/4 bg-zinc-100 rounded mb-3" />
-            <div className="h-4 w-1/2 bg-zinc-100 rounded" />
+            <div className="h-4 w-full bg-zinc-100 dark:bg-zinc-800 rounded mb-3" />
+            <div className="h-4 w-3/4 bg-zinc-100 dark:bg-zinc-800 rounded mb-3" />
+            <div className="h-4 w-1/2 bg-zinc-100 dark:bg-zinc-800 rounded" />
           </div>
         </div>
       </div>
@@ -162,10 +162,10 @@ export default function AdminServices() {
   if (!formData && !isNew) {
     return (
       <div className="space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Serviços</h1>
-            <p className="text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
+        <div className="flex flex-wrap gap-4 items-center justify-between">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão de Serviços</h1>
+            <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
           </div>
           <button 
             onClick={handleNew}
@@ -175,10 +175,10 @@ export default function AdminServices() {
             <span>Novo Serviço</span>
           </button>
         </div>
-        <div className="rounded-3xl border border-dashed border-zinc-300 bg-white p-16 text-center">
+        <div className="rounded-3xl border border-dashed border-zinc-300 bg-white dark:bg-zinc-900 p-16 text-center">
           <Palette className="mx-auto text-zinc-300 mb-4" size={44} />
-          <p className="text-zinc-500 font-semibold">Nenhum serviço selecionado.</p>
-          <p className="text-zinc-400 text-sm mt-1">Selecione um serviço na lista ou crie um novo.</p>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-semibold">Nenhum serviço selecionado.</p>
+          <p className="text-zinc-400 dark:text-zinc-500 text-sm mt-1">Selecione um serviço na lista ou crie um novo.</p>
         </div>
       </div>
     );
@@ -186,10 +186,10 @@ export default function AdminServices() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Serviços</h1>
-          <p className="text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
+      <div className="flex flex-wrap gap-4 items-center justify-between">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão de Serviços</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Configure cores, logos e banners de cada serviço.</p>
         </div>
         <button 
           onClick={handleNew}
@@ -210,7 +210,7 @@ export default function AdminServices() {
               className={`w-full p-4 rounded-xl text-left font-bold transition-all ${
                 selectedService?.id === s.id 
                   ? "bg-primary text-secondary shadow-xl scale-[1.02]" 
-                  : "bg-white text-zinc-600 hover:bg-zinc-50"
+                  : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800"
               }`}
             >
               <div className="flex items-center justify-between">
@@ -222,7 +222,7 @@ export default function AdminServices() {
             </button>
           ))}
           {isNew && (
-            <div className="w-full p-4 rounded-xl text-left font-bold bg-zinc-200 text-zinc-500 italic">
+            <div className="w-full p-4 rounded-xl text-left font-bold bg-zinc-200 text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 italic">
               Novo Serviço...
             </div>
           )}
@@ -230,77 +230,77 @@ export default function AdminServices() {
 
         {/* Edit Form */}
         <div className="lg:col-span-3">
-          <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] shadow-sm border border-zinc-100 p-8 space-y-8">
+          <form onSubmit={handleSubmit} className="bg-white dark:bg-zinc-900 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-zinc-800 p-8 space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* System Config */}
               <div className="space-y-6 md:col-span-2">
-                <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400">
+                <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                   <LinkIcon size={16} />
                   <span>Configuração de Sistema</span>
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">ID Único (ex: g-shop)</label>
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">ID Único (ex: g-shop)</label>
                     <input 
                       name="id" 
                       value={formData.id} 
                       onChange={handleChange} 
                       disabled={!isNew}
-                      className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black disabled:opacity-50" 
+                      className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black disabled:opacity-50" 
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Caminho / Rota (ex: /servicos/loja)</label>
-                    <input name="path" value={formData.path} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Caminho / Rota (ex: /servicos/loja)</label>
+                    <input name="path" value={formData.path} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                   </div>
                 </div>
               </div>
 
               {/* Names */}
               <div className="space-y-6">
-                <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400">
+                <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                   <Globe size={16} />
                   <span>Nomes (Multilingue)</span>
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Português</label>
-                    <input name="nome_pt" value={formData.nome_pt} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Português</label>
+                    <input name="nome_pt" value={formData.nome_pt} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Inglês</label>
-                    <input name="nome_en" value={formData.nome_en || ""} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Inglês</label>
+                    <input name="nome_en" value={formData.nome_en || ""} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Francês</label>
-                    <input name="nome_fr" value={formData.nome_fr || ""} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Francês</label>
+                    <input name="nome_fr" value={formData.nome_fr || ""} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Espanhol</label>
-                    <input name="nome_es" value={formData.nome_es || ""} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Espanhol</label>
+                    <input name="nome_es" value={formData.nome_es || ""} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" />
                   </div>
                 </div>
               </div>
 
               {/* Visual Config */}
               <div className="space-y-6">
-                <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400">
+                <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                   <Palette size={16} />
                   <span>Identidade Visual</span>
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Cor Principal (Paleta)</label>
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Cor Principal (Paleta)</label>
                     <div className="flex items-center space-x-4">
                       <input type="color" name="cor_paleta" value={formData.cor_paleta} onChange={handleChange} className="w-12 h-12 rounded-lg cursor-pointer overflow-hidden border-none" />
-                      <input type="text" name="cor_paleta" value={formData.cor_paleta} onChange={handleChange} className="flex-1 bg-zinc-50 p-3 rounded-xl border-none underline decoration-2 underline-offset-4" style={{ textDecorationColor: formData.cor_paleta }} />
+                      <input type="text" name="cor_paleta" value={formData.cor_paleta} onChange={handleChange} className="flex-1 bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none underline decoration-2 underline-offset-4" style={{ textDecorationColor: formData.cor_paleta }} />
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Cor Secundária</label>
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Cor Secundária</label>
                     <div className="flex items-center space-x-4">
                       <input type="color" name="cor_secundaria" value={formData.cor_secundaria || "#000000"} onChange={handleChange} className="w-12 h-12 rounded-lg cursor-pointer overflow-hidden border-none" />
-                      <input type="text" name="cor_secundaria" value={formData.cor_secundaria || "#000000"} onChange={handleChange} className="flex-1 bg-zinc-50 p-3 rounded-xl border-none underline decoration-2 underline-offset-4" style={{ textDecorationColor: formData.cor_secundaria || "#000000" }} />
+                      <input type="text" name="cor_secundaria" value={formData.cor_secundaria || "#000000"} onChange={handleChange} className="flex-1 bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none underline decoration-2 underline-offset-4" style={{ textDecorationColor: formData.cor_secundaria || "#000000" }} />
                     </div>
                   </div>
                   <ImageField
@@ -314,7 +314,7 @@ export default function AdminServices() {
                     value={formData.banner_url || ""}
                     onChange={(banner_url) => setFormData({ ...formData, banner_url })}
                     folder="servicos"
-                    previewClassName="w-full h-32 rounded-xl object-cover bg-zinc-100"
+                    previewClassName="w-full h-32 rounded-xl object-cover bg-zinc-100 dark:bg-zinc-800"
                   />
                 </div>
               </div>
@@ -322,18 +322,18 @@ export default function AdminServices() {
 
             {/* Descriptions */}
             <div className="space-y-4">
-               <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400">
+               <h3 className="flex items-center space-x-2 text-sm font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                   <Globe size={16} />
                   <span>Descrições</span>
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Descrição (PT)</label>
-                    <textarea name="descricao_pt" rows={3} value={formData.descricao_pt || ""} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black resize-none" />
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Descrição (PT)</label>
+                    <textarea name="descricao_pt" rows={3} value={formData.descricao_pt || ""} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black resize-none" />
                   </div>
                   <div>
-                     <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Descrição (EN)</label>
-                    <textarea name="descricao_en" rows={3} value={formData.descricao_en || ""} onChange={handleChange} className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black resize-none" />
+                     <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Descrição (EN)</label>
+                    <textarea name="descricao_en" rows={3} value={formData.descricao_en || ""} onChange={handleChange} className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black resize-none" />
                   </div>
                 </div>
             </div>

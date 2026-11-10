@@ -102,10 +102,10 @@ export default function AdminPortfolio() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Gestão de Portfólio</h1>
-          <p className="text-zinc-500 font-medium">Exiba os melhores momentos e trabalhos realizados pela Gorila.</p>
+      <div className="flex flex-wrap gap-4 items-center justify-between">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Gestão de Portfólio</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">Exiba os melhores momentos e trabalhos realizados pela Gorila.</p>
         </div>
         <button 
           onClick={handleNew}
@@ -118,21 +118,21 @@ export default function AdminPortfolio() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1 space-y-4">
-          <div className="bg-white rounded-3xl p-4 shadow-sm border border-zinc-100 max-h-[600px] overflow-y-auto">
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl p-4 shadow-sm border border-zinc-100 dark:border-zinc-800 max-h-[600px] overflow-y-auto">
             {loading ? (
-              <div className="p-4 text-center text-zinc-400">A carregar...</div>
+              <div className="p-4 text-center text-zinc-400 dark:text-zinc-500">A carregar...</div>
             ) : projects.length === 0 ? (
-              <div className="p-4 text-center text-zinc-400 font-bold italic">Nenhum projeto registado.</div>
+              <div className="p-4 text-center text-zinc-400 dark:text-zinc-500 font-bold italic">Nenhum projeto registado.</div>
             ) : (
               projects.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => handleSelect(p)}
                   className={`w-full p-3 rounded-2xl flex items-center space-x-3 transition-all mb-2 ${
-                    selectedProject?.id === p.id ? "bg-primary text-secondary shadow-lg" : "bg-white text-zinc-600 hover:bg-zinc-50"
+                    selectedProject?.id === p.id ? "bg-primary text-secondary shadow-lg" : "bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800"
                   }`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-zinc-100 overflow-hidden flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
                     {p.imagem ? (
                       <img src={mediaUrl(p.imagem)} alt={p.titulo} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     ) : (
@@ -151,10 +151,10 @@ export default function AdminPortfolio() {
 
         <div className="lg:col-span-3">
           {formData ? (
-            <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] shadow-sm border border-zinc-100 p-8 space-y-8">
+            <form onSubmit={handleSubmit} className="bg-white dark:bg-zinc-900 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-zinc-800 p-8 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-1 space-y-4">
-                  <div className="aspect-square w-full rounded-3xl bg-zinc-50 border-2 border-dashed border-zinc-200 overflow-hidden relative flex items-center justify-center">
+                  <div className="aspect-square w-full rounded-3xl bg-zinc-50 dark:bg-zinc-800 border-2 border-dashed border-zinc-200 overflow-hidden relative flex items-center justify-center">
                     {formData.imagem ? (
                       <img src={mediaUrl(formData.imagem)} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     ) : (
@@ -172,19 +172,19 @@ export default function AdminPortfolio() {
 
                 <div className="md:col-span-2 space-y-6">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1">Título do Projeto</label>
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1">Título do Projeto</label>
                     <input 
                       name="titulo" 
                       value={formData.titulo} 
                       onChange={handleChange} 
                       placeholder="Ex: Casamento Luxo 2024"
-                      className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black font-bold text-lg" 
+                      className="w-full bg-zinc-50 dark:bg-zinc-800 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black font-bold text-lg" 
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1 flex items-center gap-1">
+                      <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1 flex items-center gap-1">
                         <Calendar size={12} /> Data do Evento
                       </label>
                       <input 
@@ -192,11 +192,11 @@ export default function AdminPortfolio() {
                         name="data" 
                         value={formData.data} 
                         onChange={handleChange} 
-                        className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" 
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1 flex items-center gap-1">
+                      <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1 flex items-center gap-1">
                         <Tag size={12} /> Tipo de Evento
                       </label>
                       <input 
@@ -204,13 +204,13 @@ export default function AdminPortfolio() {
                         value={formData.tipo_evento} 
                         onChange={handleChange} 
                         placeholder="Ex: Casamento, Concerto, Conferência"
-                        className="w-full bg-zinc-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" 
+                        className="w-full bg-zinc-50 dark:bg-zinc-800 p-3 rounded-xl border-none focus:ring-2 focus:ring-black" 
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase text-zinc-400 ml-1 flex items-center gap-1">
+                    <label className="text-[10px] font-bold uppercase text-zinc-400 dark:text-zinc-500 ml-1 flex items-center gap-1">
                       <FileText size={12} /> Descrição / Detalhes
                     </label>
                     <textarea 
@@ -219,7 +219,7 @@ export default function AdminPortfolio() {
                       onChange={handleChange} 
                       rows={6}
                       placeholder="Descreva o sucesso deste evento..."
-                      className="w-full bg-zinc-50 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black"
+                      className="w-full bg-zinc-50 dark:bg-zinc-800 p-4 rounded-2xl border-none focus:ring-2 focus:ring-black"
                     />
                   </div>
 
@@ -233,7 +233,7 @@ export default function AdminPortfolio() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center pt-8 border-t border-zinc-100">
+              <div className="flex justify-between items-center pt-8 border-t border-zinc-100 dark:border-zinc-800">
                 {!isNew && selectedProject && (
                   <button 
                     type="button"
@@ -255,7 +255,7 @@ export default function AdminPortfolio() {
               </div>
             </form>
           ) : (
-            <div className="h-full flex items-center justify-center bg-zinc-50 rounded-[2.5rem] border-2 border-dashed border-zinc-200 p-20 text-center">
+            <div className="h-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-800 rounded-[2.5rem] border-2 border-dashed border-zinc-200 p-20 text-center">
               <div>
                 <Briefcase size={64} className="mx-auto text-zinc-200 mb-6" />
                 <h2 className="text-2xl font-black italic uppercase tracking-tighter text-zinc-300">Selecione um Projeto para Editar</h2>

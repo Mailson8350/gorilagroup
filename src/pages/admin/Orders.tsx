@@ -42,40 +42,40 @@ export default function AdminOrders() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900">Pedidos da Loja</h1>
-        <p className="text-zinc-500 font-medium">
+        <h1 className="text-3xl font-black uppercase italic tracking-tighter text-zinc-900 dark:text-white">Pedidos da Loja</h1>
+        <p className="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 font-medium">
           Pedidos do carrinho. Total: <strong>{pedidos.length}</strong>
         </p>
       </div>
 
       {error && <AdminErrorBanner message={error} onRetry={refresh} />}
 
-      <div className="bg-white rounded-[2rem] shadow-sm border border-zinc-100 overflow-hidden">
+      <div className="bg-white dark:bg-zinc-900 rounded-[2rem] shadow-sm border border-zinc-100 dark:border-zinc-800 overflow-hidden">
         {loading ? (
-          <p className="p-8 text-zinc-400 font-bold">A carregar...</p>
+          <p className="p-8 text-zinc-400 dark:text-zinc-500 font-bold">A carregar...</p>
         ) : pedidos.length === 0 && !error ? (
-          <p className="p-12 text-center text-zinc-400 font-bold italic">Nenhum pedido registado.</p>
+          <p className="p-12 text-center text-zinc-400 dark:text-zinc-500 font-bold italic">Nenhum pedido registado.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="bg-zinc-50/50 border-b border-zinc-100">
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Cliente</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Itens</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Total</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 text-right">Ações</th>
+                <tr className="bg-zinc-50/50 dark:bg-zinc-800/50 border-b border-zinc-100 dark:border-zinc-800">
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Cliente</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Itens</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Total</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-400 dark:text-zinc-500 text-right">Ações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-50">
                 {pedidos.map((p) => (
-                  <tr key={p.id} className="hover:bg-zinc-50/50">
+                  <tr key={p.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/50">
                     <td className="px-6 py-4">
                       <div className="font-bold">{p.nome_cliente}</div>
-                      <div className="text-xs text-zinc-500">{p.email_cliente}</div>
-                      <div className="text-xs text-zinc-500">{p.telefone}</div>
+                      <div className="text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">{p.email_cliente}</div>
+                      <div className="text-xs text-zinc-500 dark:text-zinc-400 dark:text-zinc-500">{p.telefone}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-zinc-600 max-w-xs">
+                    <td className="px-6 py-4 text-sm text-zinc-600 dark:text-zinc-300 max-w-xs">
                       {parseItens(p.itens).map((i, idx) => (
                         <div key={idx}>
                           {i.quantidade}x {i.nome}
